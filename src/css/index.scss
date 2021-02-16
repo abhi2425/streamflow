@@ -1,0 +1,92 @@
+:root {
+   --color-profile-1: #6146d8;
+   --color-profile-1-light: #7c7eec;
+   --color-profile-2: #6950ed;
+   --color-profile-3: #75e9e9;
+   --color-cancel: #f35958;
+   --color-dark-grey: #837f7f;
+   --color-light-grey: #d3d4d3;
+   --color-transparent-1: #dfe2e2;
+   --color-transparent-2: #bcceceb0;
+}
+*,
+*::after,
+*::before {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+html {
+   font-size: 62.5%;
+   scroll-behavior: smooth;
+}
+body {
+   font-family: 'Poppins';
+   font-weight: 300;
+   letter-spacing: 0.16rem;
+}
+
+::-webkit-scrollbar {
+   width: 1.5rem;
+   background-color: var(--color-profile-2);
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+   border-radius: 5rem;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+   background-color: white;
+   border-radius: 10rem;
+}
+
+.create-post {
+   background: transparent;
+   outline: none;
+   border: none;
+   cursor: pointer;
+}
+.create-post-logo-large {
+   width: 6.5rem;
+   height: 6.5rem;
+}
+.create-post-logo-small {
+   width: 3.5rem;
+   height: 3.5rem;
+}
+
+.logo a {
+   display: block;
+   font-family: 'Redressed', 'Cursive';
+   font-size: 5.5rem;
+   font-weight: normal;
+   color: white;
+   text-decoration: none;
+}
+
+@media screen and (max-width: 900px) {
+   html {
+      font-size: 52.25%;
+   }
+}
+@media screen and (max-width: 650px) {
+   html {
+      font-size: 72.25%;
+   }
+   body {
+      font-weight: 250;
+      letter-spacing: 0.1rem;
+   }
+   .main {
+      padding: 5rem;
+      width: auto;
+      margin-left: 0;
+   }
+   .logo a {
+      font-size: 6rem;
+   }
+}

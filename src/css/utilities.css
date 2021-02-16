@@ -1,0 +1,166 @@
+.flex-row {
+   display: flex;
+   align-items: center;
+}
+.flex-column {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.flex-y-center {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+.flex-x-center {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.flex-x-evenly {
+   display: flex;
+   justify-content: space-evenly;
+   align-items: center;
+}
+.flex-y-evenly {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-evenly;
+   align-items: center;
+}
+
+.flex-x-between {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+.flex-y-between {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: center;
+}
+.flex-y-around {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+   align-items: center;
+}
+.margin-b-s {
+   margin-bottom: 1.5rem;
+}
+.margin-t-s {
+   margin-top: 2rem;
+}
+.padding-s {
+   padding: 1.5rem;
+}
+.pos-fixed {
+   position: fixed;
+   top: 0;
+   left: 0;
+   z-index: 1;
+}
+.font-medium {
+   font-size: 1.8rem;
+}
+.transition {
+   transition: all 0.18s cubic-bezier(0.5, 0.2, 0.2, 0.8);
+}
+.transition-slow {
+   transition: all 0.35s ease;
+}
+.icon {
+   font-size: 2.2rem;
+   color: white;
+   margin-top: 0.5rem;
+   cursor: pointer;
+}
+
+.icon-grey {
+   color: var(--color-dark-grey);
+}
+.icon-red {
+   font-size: 3.7rem;
+   color: var(--color-cancel);
+}
+.icon-red:hover {
+   color: rgb(185, 39, 39);
+}
+.icon-blue {
+   font-weight: 500;
+   font-size: 3.7rem;
+   color: var(--color-profile-2);
+   cursor: pointer;
+}
+.icon-blue p {
+   font-size: 2rem;
+   margin-right: 1rem;
+}
+.icon-blue:hover {
+   color: rgb(32, 180, 206);
+}
+
+.icon-box {
+   position: absolute;
+   z-index: 5;
+   top: 50%;
+   left: 50%;
+   opacity: 0;
+   transform: translate(-50%, -50%);
+}
+
+.btn {
+   cursor: pointer;
+   font-size: 1.6rem;
+   letter-spacing: 0.2rem;
+   padding: 1rem 1.5rem;
+   border: none;
+   outline: none;
+   color: white;
+   border-radius: 0.8rem;
+}
+.btn-cancel {
+   background-color: var(--color-cancel);
+}
+.btn-cancel:hover {
+   color: var(--color-cancel);
+   background-color: white;
+   box-shadow: 0 0 0.2rem 0.1rem var(--color-cancel);
+}
+.btn-save-modal {
+   background-color: var(--color-profile-2);
+}
+.btn-save-modal:hover {
+   color: var(--color-profile-2);
+   background-color: white;
+   box-shadow: 0 0 0.2rem 0.1rem var(--color-profile-2);
+}
+.btn-save {
+   background-color: var(--color-profile-1);
+}
+.btn-save:hover {
+   color: var(--color-profile-1);
+   background-color: white;
+   box-shadow: 0 0 0.2rem 0.1rem var(--color-profile-1);
+}
+.vault-style {
+   background-color: white;
+   width: 60rem;
+   padding: 3.5rem;
+   border-radius: 1.5rem;
+}
+
+@media screen and (max-width: 650px) {
+   .btn {
+      font-size: 2.2rem;
+      padding: 1.2rem 1.8rem;
+   }
+   .icon {
+      font-size: 2.8rem;
+   }
+   .font-medium {
+      font-size: 2.2rem;
+   }
+}

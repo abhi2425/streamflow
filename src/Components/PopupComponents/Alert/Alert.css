@@ -1,0 +1,29 @@
+.alert {
+   z-index: 10001;
+   position: absolute;
+   bottom: 1rem;
+   left: 40%;
+   padding: 1.2rem 2.4rem;
+   width: 55rem;
+   transform: scale(0);
+   border-radius: 0.5rem;
+   opacity: 0;
+}
+.show-alert {
+   transform: scale(1);
+   opacity: 1;
+}
+.alert-message {
+   font-size: 2rem;
+   letter-spacing: 0.15rem;
+   font-weight: 400;
+   color: white;
+   text-align: center;
+   text-transform: capitalize;
+}
+.success {
+   background-color: var(--color-profile-2);
+}
+.danger {
+   background-color: var(--color-cancel);
+}

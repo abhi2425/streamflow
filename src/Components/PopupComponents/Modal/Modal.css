@@ -1,0 +1,43 @@
+.overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(180, 178, 178, 0.4);
+   display: flex;
+   justify-content: center;
+   backdrop-filter: blur(1rem);
+   align-items: center;
+   z-index: 1;
+   opacity: 0;
+   /* transform: translateY(-350rem); */
+   transform: scale(0);
+}
+
+.modal-container {
+   border-radius: 1.5rem;
+   max-width: 70rem;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+   visibility: hidden;
+}
+.show-overlay {
+   /* transform: translateY(0rem); */
+   transform: scale(1);
+   z-index: 50;
+   opacity: 1;
+}
+.show-modal {
+   z-index: 100;
+   visibility: visible;
+}
+.cancel {
+   color: var(--color-cancel);
+   position: absolute;
+   top: 1.5rem;
+   right: 4rem;
+   cursor: pointer;
+}

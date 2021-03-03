@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form'
 
 import FormInput from '../../Components/FormComponents/FormInput/FormInput'
 
-import { useSettingContext } from '../../Contexts/SettingContext'
-import { LoadingVault } from '../../Components/Loader/Loaders'
+import { useGeneralContext } from '../../Contexts/GeneralContext'
+import { LoadingVault } from '../../Components/UIComponents/Loader/Loaders'
 import SaveAndCancel from '../../Components/UIComponents/SaveAndCancel/SaveAndCancel'
 
 const WorkVault = () => {
@@ -17,7 +17,7 @@ const WorkVault = () => {
       fetchedData,
       fetchData: getWorkInfo,
       updateData: updateWorkDetails,
-   } = useSettingContext()
+   } = useGeneralContext()
 
    useEffect(() => getWorkInfo('currentlyWorking'), [getWorkInfo])
 
@@ -42,7 +42,7 @@ const WorkVault = () => {
                label='Started In'
                name='startedIn'
                type='date'
-               value={fetchedData?.startedIn}
+               defaultValue={fetchedData?.startedIn}
                reference={register({
                   required: {
                      message: 'required Field',
@@ -57,7 +57,7 @@ const WorkVault = () => {
                label='Description'
                name='description'
                type='text'
-               value={fetchedData?.description}
+               defaultValue={fetchedData?.description}
                reference={register({
                   required: {
                      message: 'required Field',

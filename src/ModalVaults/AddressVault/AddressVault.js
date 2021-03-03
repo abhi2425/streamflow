@@ -5,8 +5,8 @@ import CountryList from '../../Components/FormComponents/ControlledInput/Control
 import countryListData from 'react-select-country-list'
 import FormInput from '../../Components/FormComponents/FormInput/FormInput'
 
-import { useSettingContext } from '../../Contexts/SettingContext'
-import { LoadingVault } from '../../Components/Loader/Loaders'
+import { useGeneralContext } from '../../Contexts/GeneralContext'
+import { LoadingVault } from '../../Components/UIComponents/Loader/Loaders'
 import SaveAndCancel from '../../Components/UIComponents/SaveAndCancel/SaveAndCancel'
 
 const AddressVault = () => {
@@ -16,7 +16,7 @@ const AddressVault = () => {
       fetchedData,
       fetchData: getAddressInfo,
       updateData: updateAddress,
-   } = useSettingContext()
+   } = useGeneralContext()
 
    const { register, errors, handleSubmit, control } = useForm({
       mode: 'onBlur',
@@ -60,7 +60,7 @@ const AddressVault = () => {
                label='State'
                name='state'
                type='text'
-               value={fetchedData?.state}
+               defaultValue={fetchedData?.state}
                reference={register({
                   required: {
                      message: 'required field',
@@ -75,7 +75,7 @@ const AddressVault = () => {
                label='City'
                name='city'
                type='text'
-               value={fetchedData?.city}
+               defaultValue={fetchedData?.city}
                reference={register({
                   required: {
                      message: 'required Field',
@@ -90,7 +90,7 @@ const AddressVault = () => {
                label='Pincode'
                name='pinCode'
                type='text'
-               value={fetchedData?.pinCode}
+               defaultValue={fetchedData?.pinCode}
                reference={register({
                   required: {
                      message: 'required Field',

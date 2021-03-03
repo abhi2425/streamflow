@@ -1,29 +1,31 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import './Settings.css'
 import { RiMenuFoldLine } from 'react-icons/ri'
 import { useForm, Controller } from 'react-hook-form'
-import { useSettingContext } from '../../Contexts/SettingContext'
-import { StreamFlowLoading } from '../../Components/Loader/Loaders'
+import { useGeneralContext } from '../../Contexts/GeneralContext'
+import { StreamFlowLoading } from '../../Components/UIComponents/Loader/Loaders'
 import GenderList from '../../Components/FormComponents/ControlledInput/ControlledInput'
 import { genderOptions } from '../../Utils/selectsOptions'
 import SearchBar from '../../Components/SearchBar/SearchBar'
 import FormInput from '../../Components/FormComponents/FormInput/FormInput'
 import SocialMediaField from '../../Components/FormComponents/SocialMediaInput/SocialMediaInput'
 import ToolTip from '../../Components/UIComponents/Tooltip/Tooltip'
-import Avatar from '../../Components/PostsComponents/Avatar/Avatar'
+import Avatar from '../../Components/UIComponents/Avatar/Avatar'
 
 const Settings = ({ showNav, setShowNav }) => {
    const { handleSubmit, errors, register, control } = useForm({
       mode: 'onBlur',
    })
-   const {
-      user,
-      pageLoading,
-      fetchAuthUser,
-      setIsCancel,
-      updateUserDataOnSubmit,
-   } = useSettingContext()
-   useEffect(() => fetchAuthUser(), [fetchAuthUser])
+   const { user, pageLoading, setIsCancel, updateUserDataOnSubmit } = useGeneralContext()
+   const [age, setAge] = useState(0)
+   useEffect(() => {
+      document.title = 'StreamFlow | Settings'
+   }, [])
+   const getAgeHandler = useCallback((e) => {
+      const birthday = new Date(Date.parse(e.target.value))
+      const now = new Date()
+      setAge(now.getFullYear() - birthday.getFullYear())
+   }, [])
 
    if (pageLoading) return <StreamFlowLoading />
    return (
@@ -39,7 +41,8 @@ const Settings = ({ showNav, setShowNav }) => {
 
             <div className='flex-y-center'>
                <Avatar
-                  iconClass={['icon-box', 'icon-blue', 'icon-red']}
+                  avatarImageUrl={user.avatar?.image}
+                  iconClass={true}
                   imageClass='avatar-large transition'
                />
                <p className='username'>{user?.userName}</p>
@@ -52,7 +55,7 @@ const Settings = ({ showNav, setShowNav }) => {
                         type='text'
                         name='name'
                         label='Name'
-                        value={user.name}
+                        defaultValue={user.name}
                         error={errors}
                         autoFocus={true}
                         reference={register({
@@ -72,7 +75,7 @@ const Settings = ({ showNav, setShowNav }) => {
                         type='text'
                         name='userName'
                         label='Username'
-                        value={user.userName}
+                        defaultValue={user.userName}
                         error={errors}
                         reference={register({
                            required: {
@@ -91,7 +94,7 @@ const Settings = ({ showNav, setShowNav }) => {
                         type='email'
                         name='email'
                         label='Email'
-                        value={user.email}
+                        defaultValue={user.email}
                         error={errors}
                         reference={register({
                            required: {
@@ -103,8 +106,22 @@ const Settings = ({ showNav, setShowNav }) => {
                   </div>
 
                   <div className='form-action flex-x-between'>
-                     <FormInput type='date' name='birthday' label='Birthday' reference={register} />
-                     <FormInput type='text' name='age' label='Age' reference={register} />
+                     <FormInput
+                        type='date'
+                        // min={}
+                        name='birthday'
+                        label='Birthday'
+                        reference={register}
+                        changeHandler={(e) => getAgeHandler(e)}
+                     />
+                     <FormInput
+                        type='text'
+                        name='age'
+                        label='Age'
+                        reference={register}
+                        value={age}
+                        readOnly
+                     />
                   </div>
 
                   <div className='form-action flex-x-between'>
@@ -132,7 +149,7 @@ const Settings = ({ showNav, setShowNav }) => {
                   </div>
 
                   <SocialMediaField control={control} register={register} />
-                  <div className='form-action flex-x-between btn-container'>
+                  <div className='form-action flex-x-between margin-t-s'>
                      <button
                         className='btn btn-cancel transition-slow'
                         onClick={() => setIsCancel(true)}>

@@ -8,13 +8,9 @@ const SocialMediaInput = ({ control, register }) => {
       control,
       name: 'socialMedia',
    })
-   const inputFields = fields.map((item, index) => (
+   const inputFields = fields.map((_, index) => (
       <div className='form-action flex-x-between' key={index}>
-         <FormInput
-            name={`socialMedia[${index}].value`}
-            reference={register()}
-            // label={`Link-${index + 1}`}
-         />
+         <FormInput name={`socialMedia[${index}].value`} reference={register()} />
          <i className='icon icon-grey' onClick={() => remove(index)}>
             <FiMinusCircle />
          </i>

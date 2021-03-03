@@ -3,11 +3,14 @@
    --color-profile-1-light: #7c7eec;
    --color-profile-2: #6950ed;
    --color-profile-3: #75e9e9;
-   --color-cancel: #f35958;
-   --color-dark-grey: #837f7f;
+   --color-cancel: #f82121;
+   --color-cancel-light: #f75b5b;
+   --color-dark-grey: #4d4d4d;
    --color-light-grey: #d3d4d3;
    --color-transparent-1: #dfe2e2;
    --color-transparent-2: #bcceceb0;
+   --color-grey-background: #ebe9e9b9;
+   --profile-page-width: 75%;
 }
 *,
 *::after,
@@ -21,11 +24,18 @@ html {
    scroll-behavior: smooth;
 }
 body {
-   font-family: 'Poppins';
+   font-family: "Poppins";
    font-weight: 300;
    letter-spacing: 0.16rem;
 }
-
+a {
+   text-decoration: none;
+   color: white;
+}
+h1 {
+   font-size: 2.4rem;
+   font-weight: 350;
+}
 ::-webkit-scrollbar {
    width: 1.5rem;
    background-color: var(--color-profile-2);
@@ -55,13 +65,13 @@ body {
    height: 6.5rem;
 }
 .create-post-logo-small {
-   width: 3.5rem;
-   height: 3.5rem;
+   width: 4.5rem;
+   height: 4.5rem;
 }
 
 .logo a {
    display: block;
-   font-family: 'Redressed', 'Cursive';
+   font-family: "Redressed", "Cursive";
    font-size: 5.5rem;
    font-weight: normal;
    color: white;
@@ -78,15 +88,12 @@ body {
       font-size: 72.25%;
    }
    body {
-      font-weight: 250;
-      letter-spacing: 0.1rem;
+      font-weight: 400;
+      letter-spacing: 0.12rem;
    }
    .main {
       padding: 5rem;
       width: auto;
       margin-left: 0;
-   }
-   .logo a {
-      font-size: 6rem;
    }
 }

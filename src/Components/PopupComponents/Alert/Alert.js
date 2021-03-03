@@ -1,19 +1,16 @@
 import React, { memo } from 'react'
 import { ImCross } from 'react-icons/im'
-import { useUserContext } from '../../../Contexts/UserContext'
+import { useModal } from '../../../Contexts/ModalContext'
 import './Alert.css'
-const Alert = memo(() => {
-   const { alert, setAlert } = useUserContext()
+const Alert = () => {
+   const { alert, setAlert } = useModal()
    return (
-      <section
-         className={`${
-            alert?.show ? `show-alert ${alert?.type}` : ''
-         } alert transition flex-x-between`}>
+      <section className={`${alert?.show ? `show-alert ${alert?.type}` : ''} alert transition`}>
          <h1 className='alert-message'>{alert?.message}</h1>
-         <i className='icon' onClick={() => setAlert({ show: false })}>
+         <i className='icon m-left-s' onClick={() => setAlert({ show: false })}>
             <ImCross />
          </i>
       </section>
    )
-})
-export default Alert
+}
+export default memo(Alert)

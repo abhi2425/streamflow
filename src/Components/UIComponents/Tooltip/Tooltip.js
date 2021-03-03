@@ -1,5 +1,6 @@
 import React, { memo, useState } from 'react'
 import { BsThreeDotsVertical } from 'react-icons/bs'
+import { useGeneralContext } from '../../../Contexts/GeneralContext'
 import { useModal } from '../../../Contexts/ModalContext'
 
 import AddressVault from '../../../ModalVaults/AddressVault/AddressVault'
@@ -8,9 +9,10 @@ import InterestsVault from '../../../ModalVaults/InterestsVault/InterestsVault'
 import PasswordVault from '../../../ModalVaults/PasswordVault/PasswordVault'
 import WorkVault from '../../../ModalVaults/WorkVault/WorkVault'
 
-const Tooltip = memo(() => {
+const Tooltip = () => {
    const { setShowModal } = useModal()
    const [showTooltip, setShowTooltip] = useState(false)
+   const { user } = useGeneralContext()
    return (
       <div className='tooltip' onMouseLeave={() => setShowTooltip(false)}>
          <i className='icon-blue transition' onMouseOver={() => setShowTooltip(true)}>
@@ -18,7 +20,7 @@ const Tooltip = memo(() => {
          </i>
          <article className={`${showTooltip ? 'show-tooltip' : ''} tooltip-content`}>
             <button
-               className='btn transition-slow btn-save-modal'
+               className='btn transition-slow btn-save'
                onClick={() => {
                   setShowModal({
                      show: true,
@@ -28,17 +30,17 @@ const Tooltip = memo(() => {
                Change Password
             </button>
             <button
-               className='btn transition-slow btn-save-modal'
+               className='btn transition-slow btn-save'
                onClick={() => {
                   setShowModal({
                      show: true,
-                     component: <WorkVault />,
+                     component: <WorkVault workData={user.currentlyWorking} />,
                   })
                }}>
                Work Status
             </button>
             <button
-               className='btn transition-slow btn-save-modal'
+               className='btn transition-slow btn-save'
                onClick={() => {
                   setShowModal({
                      show: true,
@@ -48,7 +50,7 @@ const Tooltip = memo(() => {
                Education
             </button>
             <button
-               className='btn transition-slow btn-save-modal'
+               className='btn transition-slow btn-save'
                onClick={() => {
                   setShowModal({
                      show: true,
@@ -58,11 +60,11 @@ const Tooltip = memo(() => {
                Address
             </button>
             <button
-               className='btn transition-slow btn-save-modal'
+               className='btn transition-slow btn-save'
                onClick={() => {
                   setShowModal({
                      show: true,
-                     component: <InterestsVault />,
+                     component: <InterestsVault interests={user.interests} />,
                   })
                }}>
                Interests
@@ -70,6 +72,6 @@ const Tooltip = memo(() => {
          </article>
       </div>
    )
-})
+}
 
-export default Tooltip
+export default memo(Tooltip)

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { memo } from 'react'
 import './Modal.css'
 import { ImCross } from 'react-icons/im'
 import { useModal } from '../../../Contexts/ModalContext'
 const Modal = ({ children }) => {
    const { showModal, setShowModal } = useModal()
+   console.log('Modal ')
    return (
       <main className={showModal.show ? 'overlay transition show-overlay' : 'overlay transition'}>
          <section
@@ -21,4 +22,4 @@ const Modal = ({ children }) => {
    )
 }
 
-export default Modal
+export default memo(Modal)

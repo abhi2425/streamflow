@@ -5,20 +5,17 @@ import './css/utilities.css'
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import { UserContextProvider } from './Contexts/UserContext'
-import { PostContextProvider } from './Contexts/PostContext'
 import { ModalContextProvider } from './Contexts/ModalContext'
-import { SettingContextProvider } from './Contexts/SettingContext'
+import { GeneralContextProvider } from './Contexts/GeneralContext'
 
 ReactDOM.render(
    <React.StrictMode>
       <BrowserRouter>
          <ModalContextProvider>
             <UserContextProvider>
-               <PostContextProvider>
-                  <SettingContextProvider>
-                     <App />
-                  </SettingContextProvider>
-               </PostContextProvider>
+               <GeneralContextProvider>
+                  <App />
+               </GeneralContextProvider>
             </UserContextProvider>
          </ModalContextProvider>
       </BrowserRouter>

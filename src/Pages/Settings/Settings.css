@@ -13,22 +13,23 @@
 .tooltip {
    position: relative;
 }
-
 .tooltip-content {
    position: absolute;
-   top: 4rem;
+   top: 3.5rem;
    right: -2rem;
    width: 20rem;
    z-index: 1;
-   border-radius: 1rem;
    display: none;
 }
 .tooltip-content button {
    width: 100%;
    border-radius: 0;
    background-color: var(--color-profile-1-light);
-   /* margin-bottom: 1rem; */
 }
+.tooltip-content button:hover {
+   background-color: var(--color-profile-1);
+}
+
 .show-tooltip {
    display: block;
 }
@@ -49,10 +50,6 @@
 }
 .form-action {
    width: 100%;
-}
-.btn-container {
-   margin-top: 2rem;
-   height: 10rem;
 }
 
 .nav-height {
@@ -77,9 +74,5 @@
    }
    .search-head {
       padding: 0;
-   }
-   .alert {
-      bottom: -50vh;
-      left: 30%;
    }
 }

@@ -1,8 +1,9 @@
-import React, { useMemo } from 'react'
+import React, { useCallback } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 
 import Interests from '../../Components/FormComponents/ControlledInput/ControlledInput'
 import SaveAndCancel from '../../Components/UIComponents/SaveAndCancel/SaveAndCancel'
+import { useGeneralContext } from '../../Contexts/GeneralContext'
 
 import { interestsOptions } from '../../Utils/selectsOptions'
 
@@ -10,28 +11,37 @@ const InterestsVault = ({ interests }) => {
    const { handleSubmit, control } = useForm({
       mode: 'onBlur',
    })
-   const defaultInterests = useMemo(
-      () => interests?.map((interest) => ({ value: interest, label: interest?.toUppercase() })),
-      [interests],
+   const { updateData: updateInterestField, isBtnLoading } = useGeneralContext()
+   console.log(interests)
+   const onSubmit = useCallback(
+      async (data) => {
+         if (data.interests === '') return
+         const interests = data.interests?.map((item) => item.value)
+         console.log(interests)
+         const success = 'Your Interests are Updated!'
+         await updateInterestField('PATCH', { interests }, 'profile/user/me', success)
+      },
+      [updateInterestField],
    )
    return (
-      <form
-         onSubmit={handleSubmit((data) => console.log(data))}
-         className='vault-style flex-y-between'
-         style={{ height: '50rem' }}>
-         <Interests
-            Controller={Controller}
-            control={control}
-            name='interests'
-            label='Interests'
-            defaultControl={interests?.[0]}
-            defaultValue={defaultInterests}
-            isMulti={true}
-            isSearchable={true}
-            selectOptions={interestsOptions}
-         />
-         <SaveAndCancel />
-      </form>
+      <>
+         <form
+            onSubmit={handleSubmit(onSubmit)}
+            className='vault-style flex-y-between'
+            style={{ height: '50rem' }}>
+            <Interests
+               Controller={Controller}
+               control={control}
+               name='interests'
+               label='What Do You Love!!'
+               defaultControl={interests?.[0]}
+               isMulti={true}
+               isSearchable={true}
+               selectOptions={interestsOptions}
+            />
+            <SaveAndCancel isBtnLoading={isBtnLoading} />
+         </form>
+      </>
    )
 }
 

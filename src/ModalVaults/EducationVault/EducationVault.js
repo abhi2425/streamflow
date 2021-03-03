@@ -3,8 +3,8 @@ import { useForm, Controller } from 'react-hook-form'
 import FormInput from '../../Components/FormComponents/FormInput/FormInput'
 import ControlledInput from '../../Components/FormComponents/ControlledInput/ControlledInput'
 import { institutionOptions, completedOptions } from '../../Utils/selectsOptions'
-import { useSettingContext } from '../../Contexts/SettingContext'
-import { LoadingVault } from '../../Components/Loader/Loaders'
+import { useGeneralContext } from '../../Contexts/GeneralContext'
+import { LoadingVault } from '../../Components/UIComponents/Loader/Loaders'
 import SaveAndCancel from '../../Components/UIComponents/SaveAndCancel/SaveAndCancel'
 
 const EducationVault = memo(() => {
@@ -14,7 +14,7 @@ const EducationVault = memo(() => {
       fetchedData,
       fetchData: getEducationInfo,
       updateData: updateEducationDetails,
-   } = useSettingContext()
+   } = useGeneralContext()
    const { register, errors, handleSubmit, control } = useForm({
       mode: 'onBlur',
    })
@@ -44,7 +44,7 @@ const EducationVault = memo(() => {
                Controller={Controller}
                name='institution'
                label='Institution'
-               placeholder={fetchedData.institution}
+               placeholder={fetchedData?.institution}
                isMulti={false}
                isSearchable={false}
                selectOptions={institutionOptions}
@@ -57,7 +57,7 @@ const EducationVault = memo(() => {
                label='Institution Name'
                name='name'
                type='text'
-               value={fetchedData?.name}
+               defaultValue={fetchedData?.name}
                reference={register({
                   required: {
                      message: 'required field',
@@ -76,7 +76,7 @@ const EducationVault = memo(() => {
                label='Major'
                name='subject'
                type='text'
-               value={fetchedData?.subject}
+               defaultValue={fetchedData?.subject}
                reference={register({
                   required: {
                      message: 'required Field',
@@ -92,7 +92,7 @@ const EducationVault = memo(() => {
                Controller={Controller}
                name='completed'
                label='Completed'
-               placeholder={fetchedData.completed ? 'Yes' : 'No'}
+               placeholder={fetchedData?.completed ? 'Yes' : 'No'}
                isMulti={false}
                isSearchable={false}
                selectOptions={completedOptions}
@@ -104,7 +104,7 @@ const EducationVault = memo(() => {
                label='Completion Year'
                name='yearOfCompletion'
                type='date'
-               value={fetchedData?.yearOfCompletion}
+               defaultValue={fetchedData?.yearOfCompletion}
                reference={register({
                   required: {
                      message: 'required Field',
@@ -119,7 +119,7 @@ const EducationVault = memo(() => {
                label='Aggregate Score'
                name='score'
                type='text'
-               value={fetchedData?.score}
+               defaultValue={fetchedData?.score}
                reference={register({
                   required: {
                      message: 'required Field',

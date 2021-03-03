@@ -1,31 +1,58 @@
-import React, { useCallback } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import FormInput from '../../Components/FormComponents/FormInput/FormInput'
-import PostBody from '../../Components/PostsComponents/PostBody/PostBody'
-import UploadPostImage from '../../Components/PostsComponents/UploadImage/UploadImage'
-import { useSettingContext } from '../../Contexts/SettingContext'
+import PostBodyInput from '../../Components/PostsComponents/PostBodyInput/PostBodyInput'
+import UploadImageInput from '../../Components/PostsComponents/UploadImageInput/UploadImageInput'
+import { useGeneralContext } from '../../Contexts/GeneralContext'
 import SaveAndCancel from '../../Components/UIComponents/SaveAndCancel/SaveAndCancel'
+import axios from 'axios'
 
-const CreatePostVault = () => {
-   const { createPost, isBtnLoading } = useSettingContext()
+const CreatePostVault = ({ post, editingMode }) => {
+   const {
+      createORupdatePost,
+      isBtnLoading,
+      user: { userName },
+   } = useGeneralContext()
 
    const { register, errors, handleSubmit } = useForm({
       mode: 'onBlur',
    })
-   console.log('CREATE POST VAULT+++++++')
+   const [titleError, setTitleError] = useState(false)
+
+   let timer = null
+   const onchangeHandler = (e) => {
+      clearTimeout(timer)
+      const title = e.target.value.replace(/\s/g, '-').toLowerCase()
+      timer = setTimeout(async () => {
+         try {
+            const response = await axios.get(`/${userName}/post/${title}`)
+            response && setTitleError(true)
+         } catch (error) {
+            setTitleError(false)
+         }
+      }, 2000)
+   }
    const onSubmit = useCallback(
       async (data) => {
-         await createPost(data)
+         const url = editingMode ? `profile/post/update/${post?.title}` : 'profile/post/create'
+         const method = editingMode ? 'PATCH' : 'POST'
+         const success = editingMode ? 'Post Updated!' : 'Post Created!'
+         await createORupdatePost(method, url, success, data)
       },
-      [createPost],
+      [createORupdatePost, editingMode, post?.title],
    )
    return (
-      <form id='post' onSubmit={handleSubmit(onSubmit)} className='vault-style'>
+      <form
+         id='post'
+         onSubmit={handleSubmit(onSubmit)}
+         className='vault-style'
+         style={{ width: '70rem' }}>
          <div className='form-action'>
             <FormInput
-               label='Title'
+               label={`What's in your mind!`}
                name='title'
                type='text'
+               placeholder='Just start typing...'
                reference={register({
                   required: {
                      message: 'Title is missing',
@@ -36,18 +63,26 @@ const CreatePostVault = () => {
                      value: 6,
                   },
                })}
+               defaultValue={post && post.title?.replace(/-/g, ' ')}
+               changeHandler={(e) => onchangeHandler(e)}
                error={errors}
+            />
+            {titleError && <p className='formError'>Title already taken! Plz choose different.</p>}
+         </div>
+         <div className='form-action'>
+            <PostBodyInput
+               register={register}
+               errors={errors}
+               defaultValue={post && post.body}
+               rows={editingMode ? '20' : '16'}
             />
          </div>
          <div className='form-action'>
-            <PostBody register={register} errors={errors} />
+            <UploadImageInput register={register} />
          </div>
-         <div className='form-action'>
-            <UploadPostImage register={register} />
-         </div>
-         <SaveAndCancel isBtnLoading={isBtnLoading} />
+         <SaveAndCancel isBtnLoading={isBtnLoading} label={editingMode ? 'Update' : 'Save'} />
       </form>
    )
 }
 
-export default CreatePostVault
+export default memo(CreatePostVault)

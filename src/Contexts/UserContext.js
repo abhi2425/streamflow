@@ -2,26 +2,15 @@ import React, { createContext, useCallback, useContext, useMemo, useState } from
 import { axios } from '../Utils/url'
 import { useHistory } from 'react-router-dom'
 import { getUserFromLocalStorage } from '../Utils/localStorage'
+import { useModal } from './ModalContext'
 export const UserContext = createContext()
 
 export const UserContextProvider = ({ children }) => {
    const [isLoading, setIsLoading] = useState(false)
-   const [login, setLogin] = useState(false)
    const [userData, setUserData] = useState(() => getUserFromLocalStorage())
-   const [alert, setAlert] = useState({})
-
+   const { popAlert } = useModal()
    const history = useHistory()
    console.log('userContext----------------->')
-
-   const popAlert = useCallback((message, type) => {
-      setIsLoading(false)
-      setAlert({
-         show: true,
-         message,
-         type,
-      })
-      setTimeout(() => setAlert({ show: false }), 3500)
-   }, [])
 
    const signIn_login_OnSubmit = useCallback(
       async (formData, url) => {
@@ -39,7 +28,7 @@ export const UserContextProvider = ({ children }) => {
             if (data) {
                setUserData({
                   token: data.token,
-                  username: data.user.userName,
+                  username: data.user?.userName,
                })
                localStorage.setItem(
                   'user-data',
@@ -48,12 +37,15 @@ export const UserContextProvider = ({ children }) => {
                      username: data.user?.userName,
                   }),
                )
-               history.push('/profile')
-               popAlert(`Hii ${data?.user?.userName} welcome in streamFlow!`, 'success')
+               history.push('/')
+               popAlert(
+                  `Hii ${data.user?.userName} welcome in streamFlow!`,
+                  'success',
+                  setIsLoading,
+               )
             }
          } catch (e) {
-            console.log(e.message)
-            popAlert('Something Went wrong! Try again.', 'danger')
+            popAlert('Something Went wrong! Try again.', 'danger', setIsLoading)
          }
       },
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,7 +62,7 @@ export const UserContextProvider = ({ children }) => {
             },
          })
          response && localStorage.removeItem('user-data')
-         response && history.push('/')
+         response && history.push('/signup')
       } catch (error) {
          console.log(error.message)
       }
@@ -81,16 +73,11 @@ export const UserContextProvider = ({ children }) => {
       () => ({
          isLoading,
          userData,
-         login,
-         alert,
-         setAlert,
-         setLogin,
-         setIsLoading,
          logoutUser,
          signIn_login_OnSubmit,
       }),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      [isLoading, login, alert, userData],
+      [isLoading, userData],
    )
 
    return <UserContext.Provider value={value}>{children}</UserContext.Provider>

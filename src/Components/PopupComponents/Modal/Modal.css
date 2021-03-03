@@ -17,7 +17,7 @@
 
 .modal-container {
    border-radius: 1.5rem;
-   max-width: 70rem;
+   /* max-width: 70rem; */
    display: flex;
    justify-content: center;
    align-items: center;

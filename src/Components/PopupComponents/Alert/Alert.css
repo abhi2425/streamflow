@@ -1,22 +1,21 @@
 .alert {
    z-index: 10001;
-   position: absolute;
-   bottom: 1rem;
-   left: 40%;
-   padding: 1.2rem 2.4rem;
-   width: 55rem;
-   transform: scale(0);
+   position: fixed;
+   left: 50%;
+   padding: 0.7rem 1.4rem;
+   transform: translate(-50%, -50%);
    border-radius: 0.5rem;
-   opacity: 0;
+   display: none;
+   top: 92%;
 }
 .show-alert {
-   transform: scale(1);
-   opacity: 1;
+   display: flex;
+   align-items: center;
 }
 .alert-message {
    font-size: 2rem;
-   letter-spacing: 0.15rem;
-   font-weight: 400;
+   letter-spacing: 0.05rem;
+   font-weight: 350;
    color: white;
    text-align: center;
    text-transform: capitalize;

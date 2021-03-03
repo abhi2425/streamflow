@@ -1,17 +1,17 @@
 import React, { memo } from 'react'
 import './FormInput.css'
-const FormInput = memo(({ reference, error, changeHandler, value, optionalStyles, ...props }) => {
+const FormInput = ({ reference, error, changeHandler, defaultValue, optionalStyles, ...props }) => {
    return (
       <section className={`form-control flex-y-center ${optionalStyles}`}>
          <div className='form-input'>
-            <label className='label' htmlFor={props.name}>
+            <label className='label margin-b-ex-small' htmlFor={props.name}>
                {props.label}
             </label>
             <input
                {...props}
                id={props.name}
                placeholder={props.placeholder || props.label}
-               defaultValue={value}
+               defaultValue={defaultValue}
                ref={reference}
                onChange={changeHandler}
                style={error && { border: error[props.name] && '.1rem solid var(--color-cancel)' }}
@@ -22,5 +22,5 @@ const FormInput = memo(({ reference, error, changeHandler, value, optionalStyles
             : null}
       </section>
    )
-})
-export default FormInput
+}
+export default memo(FormInput)

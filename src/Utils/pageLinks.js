@@ -2,14 +2,14 @@ import { FaHome, FaUserAlt, FaBox } from 'react-icons/fa'
 import { VscSettingsGear } from 'react-icons/vsc'
 import { IoLogOut } from 'react-icons/io5'
 
-const links = [
+const linksGenerator = (username) => [
    {
       url: '/',
       label: 'home',
       icon: <FaHome />,
    },
    {
-      url: '/profile',
+      url: `/profile/${username}`,
       label: 'profile',
       icon: <FaUserAlt />,
    },
@@ -29,4 +29,4 @@ const links = [
       icon: <IoLogOut />,
    },
 ]
-export default links
+export default linksGenerator

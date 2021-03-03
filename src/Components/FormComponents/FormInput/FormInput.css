@@ -11,9 +11,8 @@
    font-weight: 400;
    display: block;
    text-transform: capitalize;
-   font-size: 1.8rem;
+   font-size: 1.6rem;
    align-self: center;
-   margin-bottom: 0.8rem;
 }
 
 .form-input input,
@@ -26,12 +25,11 @@
    border-radius: 0.5rem;
    border: 0.1rem solid var(--color-light-grey);
    resize: none;
+   font-weight: 350;
    overflow: auto;
-   letter-spacing: 0.12rem;
+   letter-spacing: 0.07rem;
 }
-.textarea {
-   font-size: 2.3rem;
-}
+
 .form-input input[type='file'] {
    display: none;
 }
@@ -43,9 +41,8 @@
 .formError {
    color: var(--color-cancel);
    margin-top: 0.5rem;
-   font-size: 1.3rem;
+   font-size: 1.4rem;
 }
-
 .inputError {
    border: 0.1rem solid var(--color-cancel);
 }
@@ -55,22 +52,15 @@
    margin-right: 2rem;
 }
 @media screen and (max-width: 650px) {
-   .form-control {
-      margin-bottom: 3.5rem;
-   }
-   .form-input label {
-      font-size: 2.6rem;
-      margin-bottom: 1rem;
-   }
    .form-input input,
    .textarea {
-      font-size: 2.4rem;
-      border: 0.2rem solid var(--color-light-grey);
+      border: 0.1rem solid var(--color-light-grey);
+      font-size: 1.6rem;
    }
    .formError {
-      font-size: 2rem;
+      font-size: 1.4rem;
    }
    .font-medium {
-      font-size: 2.4rem;
+      font-size: 2rem;
    }
 }

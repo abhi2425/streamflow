@@ -4,10 +4,10 @@ import { useForm } from 'react-hook-form'
 import FormInput from '../../Components/FormComponents/FormInput/FormInput'
 
 import SaveAndCancel from '../../Components/UIComponents/SaveAndCancel/SaveAndCancel'
-import { useSettingContext } from '../../Contexts/SettingContext'
+import { useGeneralContext } from '../../Contexts/GeneralContext'
 
 const PasswordVault = () => {
-   const { updateData: updatePassword, isBtnLoading } = useSettingContext()
+   const { updateData: updatePassword, isBtnLoading } = useGeneralContext()
    const { register, errors, handleSubmit } = useForm({
       mode: 'onBlur',
    })

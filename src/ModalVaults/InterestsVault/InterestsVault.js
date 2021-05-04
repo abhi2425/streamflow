@@ -8,41 +8,45 @@ import { useGeneralContext } from '../../Contexts/GeneralContext'
 import { interestsOptions } from '../../Utils/selectsOptions'
 
 const InterestsVault = ({ interests }) => {
-   const { handleSubmit, control } = useForm({
-      mode: 'onBlur',
-   })
-   const { updateData: updateInterestField, isBtnLoading } = useGeneralContext()
-   console.log(interests)
-   const onSubmit = useCallback(
-      async (data) => {
-         if (data.interests === '') return
-         const interests = data.interests?.map((item) => item.value)
-         console.log(interests)
-         const success = 'Your Interests are Updated!'
-         await updateInterestField('PATCH', { interests }, 'profile/user/me', success)
-      },
-      [updateInterestField],
-   )
-   return (
-      <>
-         <form
-            onSubmit={handleSubmit(onSubmit)}
-            className='vault-style flex-y-between'
-            style={{ height: '50rem' }}>
-            <Interests
-               Controller={Controller}
-               control={control}
-               name='interests'
-               label='What Do You Love!!'
-               defaultControl={interests?.[0]}
-               isMulti={true}
-               isSearchable={true}
-               selectOptions={interestsOptions}
-            />
-            <SaveAndCancel isBtnLoading={isBtnLoading} />
-         </form>
-      </>
-   )
+	const { handleSubmit, control } = useForm({
+		mode: 'onBlur',
+	})
+	const { updateData: updateInterestField, isBtnLoading } = useGeneralContext()
+	const onSubmit = useCallback(
+		async (data) => {
+			if (data.interests === '') return
+			const interests = data.interests?.map((item) => item.value)
+			const success = 'Your Interests are Updated!'
+			await updateInterestField(
+				'PATCH',
+				{ interests },
+				'profile/user/me',
+				success,
+			)
+		},
+		[updateInterestField],
+	)
+	return (
+		<>
+			<form
+				onSubmit={handleSubmit(onSubmit)}
+				className='vault-style flex-y-between'
+				style={{ height: '50rem' }}
+			>
+				<Interests
+					Controller={Controller}
+					control={control}
+					name='interests'
+					label='What Do You Love!!'
+					defaultControl={interests?.[0]}
+					isMulti={true}
+					isSearchable={true}
+					selectOptions={interestsOptions}
+				/>
+				<SaveAndCancel isBtnLoading={isBtnLoading} />
+			</form>
+		</>
+	)
 }
 
 export default InterestsVault

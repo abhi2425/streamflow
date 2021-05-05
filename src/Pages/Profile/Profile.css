@@ -1,97 +1,112 @@
+.profile-page {
+  width: 100%;
+  display: flex;
+}
 .main-profile {
-	width: 100vw;
-	z-index: 10;
+  width: 100vw;
+  z-index: 10;
 }
 .profile-header {
-	position: relative;
-	padding: 1rem 3rem;
-	background-color: var(--color-profile-1);
-	width: 100%;
-	position: fixed;
-	top: 0;
-	z-index: 100;
+  position: relative;
+  padding: 1rem 3rem;
+  background-color: var(--color-profile-1);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
 }
 .toolbox {
-	margin-left: 1.5rem;
+  margin-left: 1.5rem;
 }
 .nav-tooltip {
-	background-color: var(--color-profile-1-light);
-	position: absolute;
-	top: 2rem;
-	right: 1.5rem;
-	display: none;
-	z-index: 50;
+  background-color: var(--color-profile-1-light);
+  position: absolute;
+  top: 2rem;
+  right: 1.5rem;
+  display: none;
+  z-index: 50;
 }
 
 .profile-section {
-	margin-top: 2rem;
-	width: var(--profile-page-width);
-	padding: 2.5rem;
+  margin-top: 2rem;
+  width: var(--profile-page-width);
+  padding: 2.5rem;
 }
 .profile-details {
-	cursor: pointer;
-	padding: 2rem;
-	border-radius: 10%;
+  cursor: pointer;
+  padding: 2rem;
+  border-radius: 10%;
 }
 .user-details {
-	width: 40rem;
-	margin-top: -2rem;
+  width: 40rem;
+  margin-top: -2rem;
 }
 .user-details-list {
-	display: flex;
-	align-items: center;
-	list-style: none;
-	margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin-bottom: 2rem;
 }
 .user-details-list .content {
-	font-size: 1.6rem;
-	margin-left: 2rem;
-	letter-spacing: 0.02rem;
-	text-transform: capitalize;
+  font-size: 1.6rem;
+  margin-left: 2rem;
+  letter-spacing: 0.02rem;
+  text-transform: capitalize;
 }
 .profile-details:hover {
-	background-color: rgb(233, 233, 233, 0.6);
+  background-color: rgb(233, 233, 233, 0.6);
 }
 .profile-section .username {
-	font-size: 2rem;
-	font-weight: 400;
+  font-size: 2rem;
+  font-weight: 400;
 }
 .profile-section .status {
-	font-size: 1.8rem;
-	text-transform: capitalize;
-	margin: 2rem;
-	width: 35rem;
-	text-align: center;
+  font-size: 1.8rem;
+  text-transform: capitalize;
+  margin: 2rem;
+  width: 35rem;
+  text-align: center;
 }
 .edit-profile a {
-	color: white;
-	padding: 0.8rem 1.4rem;
-	border-radius: 0.5rem;
-	background-color: var(--color-profile-1);
-	font-size: 2rem;
-	transition: all 0.4s ease;
+  color: white;
+  padding: 0.8rem 1.4rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-profile-1);
+  font-size: 2rem;
+  transition: all 0.4s ease;
 }
 .edit-profile a:hover {
-	background-color: var(--color-profile-1-light);
+  background-color: var(--color-profile-1-light);
 }
 .count {
-	font-size: 3rem;
-	font-weight: 400;
-	margin-bottom: 0.2rem;
-	color: black;
-	text-decoration: none;
+  font-size: 3rem;
+  font-weight: 400;
+  margin-bottom: 0.2rem;
+  color: black;
+  text-decoration: none;
 }
 .tag {
-	font-size: 1.6rem;
-	color: black;
-	text-decoration: none;
+  font-size: 1.6rem;
+  color: black;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 650px) {
-	.main-profile {
-		width: auto;
-	}
-	.profile-header {
-		padding: 1rem;
-	}
+  .profile-page {
+    width: auto;
+    display: block;
+  }
+  .main-profile {
+    width: auto;
+  }
+  .profile-header {
+    padding: 1rem;
+  }
+  .profile-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0;
+  }
 }

@@ -83,16 +83,10 @@ h1 {
 
 @media screen and (max-width: 900px) {
    html {
-      font-size: 52.25%;
+      font-size: 58.25%;
    }
 }
 @media screen and (max-width: 650px) {
-   html {
-      // font-size: 78.25%;
-   }
-   body {
-      font-weight: 400;
-   }
    .main {
       padding: 5rem;
       width: auto;

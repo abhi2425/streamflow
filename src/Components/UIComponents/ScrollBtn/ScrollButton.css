@@ -1,36 +1,36 @@
 .scrollBtn {
-   position: fixed;
-   left: 90%;
-   top: 85%;
-   cursor: pointer;
-   color: white;
-   border: none;
-   font-size: 3rem;
-   border-radius: 1rem;
-   padding: 2rem;
-   background-color: rgba(0, 0, 0, 0.2);
-   z-index: 50;
-   opacity: 0;
+  position: fixed;
+  left: 90%;
+  top: 85%;
+  cursor: pointer;
+  color: white;
+  border: none;
+  font-size: 3rem;
+  border-radius: 1rem;
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 50;
+  opacity: 0;
 }
 .showScrollBtn {
-   opacity: 1;
+  opacity: 1;
 }
 .scrollBtn:hover {
-   color: var(--color-profile-1);
-   background-color: rgba(0, 0, 0, 0.4);
+  color: var(--color-profile-1);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 .scrollBtn:focus {
-   outline: none;
+  outline: none;
 }
 @media screen and (max-width: 900px) {
-   .scrollBtn {
-      left: 85%;
-   }
+  .scrollBtn {
+    left: 85%;
+  }
 }
 
 @media screen and (max-width: 650px) {
-   .scrollBtn {
-      left: 88%;
-      top: 88%;
-   }
+  .scrollBtn {
+    left: 85%;
+    top: 85%;
+  }
 }

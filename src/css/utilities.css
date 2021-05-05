@@ -1,188 +1,188 @@
 .flex {
-	display: flex;
+  display: flex;
 }
 .flex-row {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 .flex-column {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .flex-y-center {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .flex-y-start {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .flex-x-center {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .flex-x-evenly {
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 .flex-y-evenly {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .flex-x-between {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .flex-y-between {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 .flex-y-around {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 .flex-x-around {
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .margin-s {
-	margin: 1.5rem;
+  margin: 1.5rem;
 }
 .margin-b-ex-small {
-	margin-bottom: 0.8rem;
+  margin-bottom: 0.8rem;
 }
 .margin-b-s {
-	margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 .margin-b-m {
-	margin-bottom: 4rem;
+  margin-bottom: 4rem;
 }
 .margin-b-xl {
-	margin-bottom: 12rem;
+  margin-bottom: 12rem;
 }
 .margin-t-l {
-	margin-top: 8rem;
+  margin-top: 8rem;
 }
 .margin-t-m {
-	margin-top: 5rem;
+  margin-top: 5rem;
 }
 .margin-b-l {
-	margin-bottom: 8rem;
+  margin-bottom: 8rem;
 }
 .margin-t-s {
-	margin-top: 2rem;
+  margin-top: 2rem;
 }
 .m-left-s {
-	margin-left: 2rem;
+  margin-left: 2rem;
 }
 .m-right-s {
-	margin-right: 2rem;
+  margin-right: 2rem;
 }
 .m-0 {
-	margin: 0;
+  margin: 0;
 }
 .padding-s {
-	padding: 1.5rem;
+  padding: 1.5rem;
 }
 .pos-fixed {
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 .font-medium {
-	font-size: 1.8rem;
+  font-size: 1.8rem;
 }
 .transition {
-	transition: all 0.2s cubic-bezier(0.5, 0.2, 0.2, 0.8);
+  transition: all 0.2s cubic-bezier(0.5, 0.2, 0.2, 0.8);
 }
 .transition-slow {
-	transition: all 0.35s ease;
+  transition: all 0.35s ease;
 }
 .icon {
-	font-size: 2.2rem;
-	color: white;
-	margin-top: 0.5rem;
-	cursor: pointer;
-	z-index: 1;
+  font-size: 2.2rem;
+  color: white;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  z-index: 1;
 }
 .icon-small {
-	font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .icon-grey {
-	color: var(--color-dark-grey);
+  color: var(--color-dark-grey);
 }
 
 .icon-active {
-	fill: var(--color-profile-1);
+  fill: var(--color-profile-1);
 }
 .icon-red {
-	font-size: 3.7rem;
-	color: var(--color-cancel);
+  font-size: 3.7rem;
+  color: var(--color-cancel);
 }
 .icon-red:hover {
-	color: rgb(185, 39, 39);
+  color: rgb(185, 39, 39);
 }
 .icon-blue,
 .icon-blue-small {
-	font-weight: 500;
-	color: var(--color-profile-2);
-	cursor: pointer;
+  font-weight: 500;
+  color: var(--color-profile-2);
+  cursor: pointer;
 }
 .icon-blue {
-	font-size: 3.7rem;
+  font-size: 3.7rem;
 }
 .icon-blue-small {
-	font-size: 2.5rem;
-	background-color: transparent;
-	border: none;
+  font-size: 2.5rem;
+  background-color: transparent;
+  border: none;
 }
 .icon-blue p {
-	font-size: 2rem;
-	margin-right: 1rem;
+  font-size: 2rem;
+  margin-right: 1rem;
 }
 .icon-blue:hover,
 .icon-blue-small:hover {
-	color: var(--color-profile-1-light);
+  color: var(--color-profile-1-light);
 }
 
 .icon-box {
-	position: absolute;
-	z-index: 5;
-	top: 50%;
-	left: 50%;
-	opacity: 0;
-	transform: translate(-50%, -50%);
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%);
 }
 
 .btn {
-	cursor: pointer;
-	font-size: 1.6rem;
-	letter-spacing: 0.08rem;
-	padding: 0.8rem 0.8rem;
-	border: none;
-	outline: none;
-	color: white;
-	border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1.6rem;
+  letter-spacing: 0.08rem;
+  padding: 0.8rem 0.8rem;
+  border: none;
+  outline: none;
+  color: white;
+  border-radius: 0.5rem;
 }
 .btn-cancel {
-	background-color: var(--color-cancel);
+  background-color: var(--color-cancel);
 }
 /* .btn-cancel:hover {
    color: var(--color-cancel);
@@ -190,34 +190,37 @@
    box-shadow: 0 0 0.2rem 0.1rem var(--color-cancel);
 } */
 .btn-cancel:hover {
-	background-color: var(--color-cancel-light);
+  background-color: var(--color-cancel-light);
 }
 .btn-save {
-	background-color: var(--color-profile-1);
+  background-color: var(--color-profile-1);
 }
 .btn-save:hover {
-	background-color: var(--color-profile-1-light);
+  background-color: var(--color-profile-1-light);
 }
 .pos-abs {
-	position: absolute;
-	bottom: 01rem;
-	right: 1.5rem;
+  position: absolute;
+  bottom: 01rem;
+  right: 1.5rem;
 }
 .vault-style {
-	background-color: white;
-	width: 60rem;
-	padding: 2.5rem;
-	border-radius: 1.5rem;
+  background-color: white;
+  width: 60rem;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
 }
 @media screen and (max-width: 650px) {
-	.btn {
-		font-size: 1.8rem;
-		padding: 1rem 1.4rem;
-	}
-	.icon {
-		font-size: 2.2rem;
-	}
-	.font-medium {
-		font-size: 2.2rem;
-	}
+  .btn {
+    font-size: 1.8rem;
+    padding: 1rem 1.4rem;
+  }
+  .icon {
+    font-size: 2.2rem;
+  }
+  .font-medium {
+    font-size: 2.2rem;
+  }
+  .vault-style {
+    width: 48rem;
+  }
 }

@@ -36,7 +36,7 @@ const PostComments = ({
       ])
       reset()
       const url = `/profile/post/${postOwner}/${title}/comment`
-      await postComment('PATCH', { description }, url)
+      await postComment('PATCH', { description, date: Date.now() }, url)
     },
     [commentsList, postComment, postOwner]
   )

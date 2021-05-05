@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import Dates from 'date-and-time'
 import { BsFillHeartFill } from 'react-icons/bs'
 import Avatar from '../UIComponents/Avatar/Avatar'
@@ -56,4 +56,4 @@ const CommentTemplate = ({ comment, pattern }) => {
   )
 }
 
-export default CommentTemplate
+export default memo(CommentTemplate)

@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import Avatar from '../../Components/UIComponents/Avatar/Avatar'
 import { useUserContext } from '../../Contexts/UserContext'
 
-import Navbar from '../../Components/Navigation/Navbar/Navbar'
+// import Navbar from '../../Components/Navigation/Navbar/Navbar'
 import FollowersVault from '../../ModalVaults/FollowersVault/FollowersVault'
 import { useModal } from '../../Contexts/ModalContext'
 import {

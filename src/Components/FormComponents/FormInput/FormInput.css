@@ -1,66 +1,65 @@
 .form-control {
-   box-sizing: border-box;
-   margin-bottom: 1.5rem;
-   margin-right: 1.5rem;
-   width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 1.5rem;
+  margin-right: 1.5rem;
+  width: 100%;
 }
 .form-input {
-   width: 100%;
+  width: 100%;
 }
 .form-input .label {
-   font-weight: 400;
-   display: block;
-   text-transform: capitalize;
-   font-size: 1.6rem;
-   align-self: center;
+  font-weight: 400;
+  display: block;
+  text-transform: capitalize;
+  font-size: 1.6rem;
+  align-self: center;
 }
 
 .form-input input,
 .textarea {
-   outline: none;
-   width: 100%;
-   padding: 0.6rem 1rem;
-   font-size: 1.8rem;
-   color: var(--color-dark-grey);
-   border-radius: 0.5rem;
-   border: 0.1rem solid var(--color-light-grey);
-   resize: none;
-   font-weight: 350;
-   overflow: auto;
-   letter-spacing: 0.07rem;
+  outline: none;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1.8rem;
+  color: var(--color-dark-grey);
+  border-radius: 0.5rem;
+  border: 0.1rem solid var(--color-light-grey);
+  resize: none;
+  font-weight: 350;
+  overflow: auto;
+  letter-spacing: 0.07rem;
 }
 
 .form-input input[type='file'] {
-   display: none;
+  display: none;
 }
 
 .form-input input:focus,
 .form-input textarea:focus {
-   box-shadow: 0 0 0.2rem 0.1rem var(--color-profile-2);
+  box-shadow: 0 0 0.2rem 0.1rem var(--color-profile-2);
 }
 .formError {
-   color: var(--color-cancel);
-   margin-top: 0.5rem;
-   font-size: 1.4rem;
+  color: var(--color-cancel);
+  margin-top: 0.5rem;
+  font-size: 1.4rem;
 }
 .inputError {
-   border: 0.1rem solid var(--color-cancel);
+  border: 0.1rem solid var(--color-cancel);
 }
 .previewImage {
-   width: 5rem;
-   height: 5rem;
-   margin-right: 2rem;
+  width: 5rem;
+  height: 5rem;
+  margin-right: 2rem;
 }
 @media screen and (max-width: 650px) {
-   .form-input input,
-   .textarea {
-      border: 0.1rem solid var(--color-light-grey);
-      font-size: 1.6rem;
-   }
-   .formError {
-      font-size: 1.4rem;
-   }
-   .font-medium {
-      font-size: 2rem;
-   }
+  .form-input input,
+  .textarea {
+    border: 0.1rem solid var(--color-light-grey);
+  }
+  .formError {
+    font-size: 1.4rem;
+  }
+  .font-medium {
+    font-size: 2rem;
+  }
 }

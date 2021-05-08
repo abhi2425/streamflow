@@ -1,0 +1,38 @@
+.post-page {
+  display: flex;
+}
+.post-page h1 {
+  font-size: 2.4rem;
+  font-weight: 350;
+}
+.postImage-box {
+  position: relative;
+}
+.post-image {
+  width: 15rem;
+  height: 15rem;
+  object-fit: contain;
+}
+.postImage-box i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+.postImage-box:hover i {
+  opacity: 1;
+}
+.postImage-box:hover .post-image {
+  filter: blur(0.5rem);
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media screen and (max-width: 650px) {
+  .post-small-screen {
+    display: block;
+    margin-left: 0;
+  }
+}

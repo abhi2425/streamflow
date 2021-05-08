@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import './Profile.css'
 import { Link, useParams } from 'react-router-dom'
 import Avatar from '../../Components/UIComponents/Avatar/Avatar'
 import { useUserContext } from '../../Contexts/UserContext'
 
-// import Navbar from '../../Components/Navigation/Navbar/Navbar'
+import Navbar from '../../Components/Navigation/Navbar/Navbar'
 import FollowersVault from '../../ModalVaults/FollowersVault/FollowersVault'
 import { useModal } from '../../Contexts/ModalContext'
 import {
@@ -15,6 +15,7 @@ import Spinner from '../../Components/UIComponents/Loader/Spinner'
 import { useGeneralContext } from '../../Contexts/GeneralContext'
 import PlaceholderSpinner from '../../Components/UIComponents/Loader/PlaceholderSpinner'
 import UserPosts from '../../Components/PostsComponents/UserPosts/UserPosts'
+
 const Profile = () => {
   const {
     userData: { username },
@@ -31,16 +32,17 @@ const Profile = () => {
     followUnfollowHandler,
   } = useProfileContext()
   const { username: params_username } = useParams()
-
-  useEffect(() => {
-    username !== params_username &&
-      checkCommonFollowers(params_username, username)
-  }, [checkCommonFollowers, params_username, username])
+  const [displayDescription, setDisplayDescription] = useState(false)
 
   useEffect(() => {
     document.title = `StreamFlow | ${params_username}`
     getUserProfile(params_username)
   }, [getUserProfile, params_username])
+
+  useEffect(() => {
+    username !== params_username &&
+      checkCommonFollowers(params_username, username)
+  }, [checkCommonFollowers, params_username, username])
 
   const followVaultHandler = useCallback(
     (followers, following, active) => {
@@ -64,19 +66,34 @@ const Profile = () => {
     [params_username]
   )
   return (
-    <div className='profile-page'>
+    <div className='page'>
       <main className='main-profile margin-t-l flex-y-evenly'>
-        {/* <Navbar /> */}
+        <Navbar />
         {pageLoading ? (
           <PlaceholderSpinner styles='lds-spinner-medium' />
         ) : (
           <>
             <section className='flex-x-evenly profile-section'>
               <div className='flex-y-between'>
-                <Avatar
-                  avatarImageUrl={profile.user?.avatar?.image}
-                  imageClass='avatar-profile'
-                />
+                <div
+                  style={{ position: 'relative' }}
+                  onClick={() => setDisplayDescription((prev) => !prev)}
+                >
+                  <Avatar
+                    avatarImageUrl={profile.user?.avatar?.image}
+                    imageClass='avatar-profile transition'
+                  />
+                  {profile.user?.quotes && (
+                    <div
+                      className={`profile-description transition ${
+                        displayDescription && 'show-description'
+                      }`}
+                    >
+                      {profile.user?.quotes}
+                    </div>
+                  )}
+                </div>
+
                 <div className='flex-y-center'>
                   <p className='username'>{params_username}</p>
                   <p className='status'>

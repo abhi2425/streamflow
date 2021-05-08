@@ -6,7 +6,7 @@ import About from './Pages/About/About'
 import Signup from './Pages/Signup/Signup'
 import Profile from './Pages/Profile/Profile'
 import Settings from './Pages/Settings/Settings'
-import SinglePostPage from './Pages/SinglePostPage/SinglePostPage'
+import EditPostPage from './Pages/EditPostPage/EditPostPage'
 import Error from './Pages/Error/Error'
 import Logout from './Pages/Logout/Logout'
 
@@ -65,7 +65,7 @@ const App = () => {
           </ProfileContextProvider>
         </PrivateRoute>
         <PrivateRoute path='/post/:title'>
-          <SinglePostPage />
+          <EditPostPage />
         </PrivateRoute>
         <Route path='*'>
           <Error />

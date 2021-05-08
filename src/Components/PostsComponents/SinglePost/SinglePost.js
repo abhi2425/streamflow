@@ -21,7 +21,6 @@ import PostComments from './PostComments/PostComments'
 
 const SinglePost = ({ post, user }) => {
   const { title, body, postOwner, createdAt, upVote, downVote, comments } = post
-  console.log(post)
   const { popAlert } = useModal()
   const {
     userData: { username, token },
@@ -75,7 +74,7 @@ const SinglePost = ({ post, user }) => {
   }, [isUpVote, sendRequest, state.downVote, state.upVote])
 
   const created_At = useMemo(() => {
-    const pattern = Dates.compile('MMM D YYYY hh:mm:ss A')
+    const pattern = Dates.compile('MMM D, YYYY')
     return Dates.format(new Date(Date.parse(createdAt)), pattern)
   }, [createdAt])
 
@@ -84,6 +83,7 @@ const SinglePost = ({ post, user }) => {
       post.blogImages?.map((item, imageIndex) => (
         <a href={item.image} target='blank' key={`${imageIndex}-image`}>
           <img
+            loading='lazy'
             src={item.image}
             alt={`postImage-${imageIndex}`}
             className='margin-s'

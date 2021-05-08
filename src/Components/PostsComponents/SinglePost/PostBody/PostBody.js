@@ -34,7 +34,7 @@ const PostBody = ({
         </button>
       )}
     </div>
-    <div className='post-images flex-column'>{postImages}</div>
+    <div className='post-images'>{postImages}</div>
   </>
 )
 

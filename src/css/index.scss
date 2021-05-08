@@ -2,6 +2,7 @@
    --color-profile-1: #6146d8;
    --color-profile-1-light: #7c7eec;
    --color-profile-2: #6950ed;
+    --color-profile-2-light: #8c8dd1;
    --color-profile-3: #75e9e9;
    --color-cancel: #f82121;
    --color-cancel-light: #f75b5b;
@@ -29,6 +30,10 @@ body {
    letter-spacing: 0.05rem;
    background-color: #f4f4f4;
 }
+.page {
+  width: 100%;
+  display: flex;
+}
 a {
    text-decoration: none;
    color: white;
@@ -38,7 +43,7 @@ h1 {
    font-weight: 350;
 }
 ::-webkit-scrollbar {
-   width: 1.5rem;
+   width: 1rem;
    background-color: var(--color-profile-2);
 }
 
@@ -92,4 +97,8 @@ h1 {
       width: auto;
       margin-left: 0;
    }
+    .page {
+    width: auto;
+    display: block;
+  }
 }

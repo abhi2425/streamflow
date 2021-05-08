@@ -20,9 +20,8 @@ const CommentTemplate = ({
   const [ownerAvatar, setOwnerAvatar] = useState('')
   const [loading, setLoading] = useState(true)
   const [likeTheComment, setLikeTheComment] = useState(false)
-  const [commentUpVote, setCommentUpVote] = useState(comment.upVote)
   const [sendRequest, setSendRequest] = useState(false)
-
+  const [commentUpVote, setCommentUpVote] = useState(comment.upVote?.length)
   useEffect(() => {
     setLoading(true)
     axios
@@ -37,26 +36,21 @@ const CommentTemplate = ({
 
   useEffect(() => {
     const alreadyLiked = comment.upVote?.findIndex((name) => name === username)
-    console.log(alreadyLiked)
+    if (alreadyLiked >= 0) setLikeTheComment(true)
   }, [comment.upVote, username])
 
   useEffect(() => {
     if (sendRequest) {
-      console.log(comment)
-
+      likeTheComment
+        ? setCommentUpVote(commentUpVote + 1)
+        : setCommentUpVote(commentUpVote - 1)
       const url = `/profile/post/${postOwner}/${title}/comment`
-      const data = likeTheComment
-        ? {
-            ...comment,
-            upVote: [username],
-          }
-        : {
-            ...comment,
-            upVote: commentUpVote?.filter((name) => name !== username) && [],
-          }
-      sendRequest && (async () => await postComment('PATCH', data, url))()
+      const data = {
+        ...comment,
+        upVote: [username],
+      }
+      ;(async () => await postComment('PATCH', data, url))()
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sendRequest, likeTheComment])
 
@@ -67,38 +61,45 @@ const CommentTemplate = ({
 
   return (
     <li className='comment-details flex-row'>
-      <div>
+      <div style={{ alignSelf: 'baseline' }}>
         {loading ? (
           <Loader styles='loader-small' />
         ) : (
           <Link to={`/profile/${comment.owner}`}>
             <Avatar
-              avatarImageUrl={localStorage.getItem(comment.owner)}
+              avatarImageUrl={
+                localStorage.getItem(comment.owner) === 'undefined'
+                  ? undefined
+                  : localStorage.getItem(comment.owner)
+              }
               imageClass='avatar-small'
             />
           </Link>
         )}
       </div>
 
-      <div className='m-left-s' style={{ width: '100%' }}>
+      <div style={{ width: '100%', marginLeft: '1rem' }}>
         <div className='flex-x-between'>
           <div className='flex-row'>
-            <span>{comment.owner}</span>
+            <span style={{ alignSelf: 'baseline' }}>{comment.owner}</span>
             <p>{comment.description}</p>
           </div>
-          <div className='flex-y-center'>
+
+          <div className='flex-y-center' style={{ marginLeft: '1rem' }}>
             <i className='icon icon-small' onClick={likeHandler}>
               <BsFillHeartFill
                 fill={likeTheComment ? 'crimson' : 'var(--color-dark-grey)'}
               />
             </i>
-            <p>
-              {commentUpVote?.length >= 2 && `${commentUpVote?.length} likes`}
-            </p>
           </div>
         </div>
-        <div className='comment-time'>
+
+        <div className='comment-time flex-row'>
           {Dates.format(new Date(Date.parse(comment.date)), pattern)}
+          <p className='m-left-s'>
+            {commentUpVote >= 1 &&
+              `${commentUpVote} ${commentUpVote === 1 ? 'like' : 'likes'}`}
+          </p>
         </div>
       </div>
     </li>

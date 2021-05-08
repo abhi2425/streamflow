@@ -200,7 +200,7 @@
 }
 .pos-abs {
   position: absolute;
-  bottom: 01rem;
+  bottom: -0.5rem;
   right: 1.5rem;
 }
 .vault-style {
@@ -215,12 +215,12 @@
     padding: 1rem 1.4rem;
   }
   .icon {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
   }
   .font-medium {
     font-size: 2.2rem;
   }
   .vault-style {
-    width: 48rem;
+    width: 42rem;
   }
 }

@@ -24,14 +24,11 @@ const PostComments = ({
   useEffect(() => {
     if (sendRequest) {
       const url = `/profile/post/${postOwner}/${title}/comment`
-      console.log(commentsList)
-
       const data = {
         _id: commentsList[0]._id,
         description: commentsList[0].description,
-        date: Date.now(),
+        date: commentsList[0].date,
       }
-      console.log(data)
       ;(async () => await postComment('PATCH', data, url))()
     }
   }, [sendRequest, commentsList, postOwner, title, postComment])
@@ -42,7 +39,7 @@ const PostComments = ({
       setCommentsList([
         {
           description,
-          date: Dates.format(new Date(), pattern),
+          date: new Date(),
           owner: username,
           _id: Math.round(Math.random() * 10 ** 10),
         },
@@ -86,12 +83,13 @@ const PostComments = ({
                     setViewMore({ show: true, end: viewMore.end + 3 })
                   }
                 >
-                  <IoAddCircleOutline />
+                  <IoAddCircleOutline style={{ fontSize: '4rem' }} />
                 </i>
               </div>
             ) : null}
           </ul>
-          <p>{`${commentsList.length} comments`}</p>
+          <p>{`${commentsList.length} 
+          ${commentsList.length === 1 ? 'comment' : 'comments'}`}</p>
         </>
       )}
       <div className='flex-row'>

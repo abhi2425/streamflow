@@ -30,7 +30,6 @@
 
 @media screen and (max-width: 650px) {
   .scrollBtn {
-    left: 85%;
-    top: 85%;
+    display: none;
   }
 }

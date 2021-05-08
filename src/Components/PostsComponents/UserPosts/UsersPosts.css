@@ -59,8 +59,12 @@
   background-color: var(--color-profile-1-light);
   color: white;
 }
+.post-images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
 .post-images img {
-  width: 40rem;
+  width: 20rem;
   height: 20rem;
   object-fit: contain;
 }
@@ -123,15 +127,20 @@
 }
 .post-comments p {
   letter-spacing: 0.04rem;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-family: sans-serif;
 }
 
 .comment-details .comment-time {
-  display: inline;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 @media screen and (max-width: 650px) {
+  .post-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
   .post-section {
     width: 100%;
     padding: 0%;

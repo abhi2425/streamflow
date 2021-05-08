@@ -111,7 +111,8 @@ export const GeneralContextProvider = ({ children }) => {
         }
       } catch (error) {
         console.log(error)
-        popAlert('Something Went Wrong!', 'danger')
+        setIsBtnLoading(false)
+        popAlert(`couldn't upload the post!`, 'danger')
       }
     }, // eslint-disable-next-line react-hooks/exhaustive-deps
     [token]
@@ -138,15 +139,14 @@ export const GeneralContextProvider = ({ children }) => {
         }
       } catch (error) {
         console.log(error)
-        popAlert('Something Went Wrong!', 'danger')
+        setIsBtnLoading(false)
+        popAlert(`couldn't upload the post!`, 'danger')
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
-  const updateUserDataOnSubmit = useCallback(async (data) => {
-    console.log(data)
-  }, [])
+
   const values = useMemo(
     () => ({
       user,
@@ -159,7 +159,6 @@ export const GeneralContextProvider = ({ children }) => {
       updateData,
       uploadPicture,
       createORupdatePost,
-      updateUserDataOnSubmit,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [user, pageLoading, isVaultLoading, fetchedData, isBtnLoading]

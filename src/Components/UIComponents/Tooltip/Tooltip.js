@@ -25,7 +25,9 @@ const Tooltip = () => {
         <BsThreeDotsVertical />
       </i>
       <article
-        className={`${showTooltip ? 'show-tooltip' : ''} tooltip-content`}
+        className={`${
+          showTooltip ? 'show-tooltip' : ''
+        } tooltip-content transition`}
       >
         <button
           className='btn transition-slow btn-save'

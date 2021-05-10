@@ -38,9 +38,7 @@ const SocialMediaInput = ({ control, register, socialMedia }) => {
               className='icon icon-blue transition'
               style={{ fontSize: '4rem' }}
               onClick={() =>
-                socialMedia.length > 0
-                  ? append([...socialMedia, {}])
-                  : append({})
+                socialMedia.length > 0 ? append([...socialMedia]) : append({})
               }
             >
               <FiPlusCircle />

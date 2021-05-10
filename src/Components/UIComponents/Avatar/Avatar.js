@@ -13,7 +13,7 @@ const Avatar = ({
   iconClass,
   localImageUrl,
   avatarImageUrl,
-  onMouseOver,
+  onClick,
 }) => {
   const { setShowModal } = useModal()
   const { user, updateData: removeAvatar } = useGeneralContext()
@@ -41,7 +41,7 @@ const Avatar = ({
     <div
       style={{ position: 'relative', cursor: 'pointer' }}
       className='avatar-box'
-      onMouseOver={onMouseOver}
+      onClick={onClick}
     >
       {iconClass && (
         <div className='icon-box flex-y-between transition'>
@@ -76,7 +76,7 @@ const Avatar = ({
         />
       ) : (
         <i className={imageClass}>
-          <FaUserCircle style={{ marginTop: '2rem' }} />
+          <FaUserCircle style={{ marginTop: '1rem' }} />
         </i>
       )}
     </div>

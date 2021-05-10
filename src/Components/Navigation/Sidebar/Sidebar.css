@@ -1,41 +1,9 @@
 .sidebar {
-   width: 30rem;
-   padding: 2rem;
-   height: 100%;
-   background-color: var(--color-profile-1);
+  width: 30rem;
+  padding: 2rem;
+  height: 100%;
+  background-color: var(--color-profile-1);
 }
 .stream-flow {
-   margin-bottom: 5rem;
-}
-
-.links {
-   width: 100%;
-   padding: 0.8rem 4rem;
-}
-.links:hover {
-   background-color: var(--color-profile-1-light);
-}
-.shift-color:hover {
-   background-color: var(--color-profile-1);
-}
-.nav-container {
-   margin: 5rem 0;
-}
-
-.nav-container a {
-   display: block;
-   text-decoration: none;
-   color: white;
-   font-size: 2.1rem;
-   text-transform: capitalize;
-   letter-spacing: 0.2rem;
-   align-self: center;
-   margin-left: 2rem;
-   font-weight: 200;
-}
-@media screen and (max-width: 650px) {
-   .avatar-medium {
-      width: 15rem;
-      height: 15rem;
-   }
+  margin-bottom: 5rem;
 }

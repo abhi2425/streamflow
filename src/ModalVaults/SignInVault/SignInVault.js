@@ -23,7 +23,7 @@ const SignInVault = () => {
 
     usernameTimer = setTimeout(async () => {
       try {
-        const response = username && (await axios.get(`user/${username}`))
+        const response = await axios.get(`user/${username}`)
         response && setUserNameError(true)
       } catch (error) {
         setUserNameError(false)
@@ -37,7 +37,9 @@ const SignInVault = () => {
     const email = e.target.value?.toLowerCase()
     emailTimer = setTimeout(async () => {
       try {
-        const response = email.length > 9 && (await axios.get(`email/${email}`))
+        const response =
+          (email.length === 0 || email.length > 9) &&
+          (await axios.get(`email/${email}`))
         response && setEmailError(true)
       } catch (error) {
         setEmailError(false)
@@ -117,7 +119,7 @@ const SignInVault = () => {
               },
             })}
             error={errors}
-            changeHandler={(e) => emailChangeHandler(e)}
+            changeHandler={(e) => !login && emailChangeHandler(e)}
           />
           {emailError && (
             <p className='formError'>

@@ -52,11 +52,13 @@
   letter-spacing: 0.02rem;
 }
 .read-more {
+  background: transparent;
   color: black;
   margin-left: 0.5rem;
+  padding: 0.5rem 0.8rem;
 }
 .read-more:hover {
-  background-color: var(--color-profile-1-light);
+  background-color: var(--color-profile-2-light);
   color: white;
 }
 .post-images {

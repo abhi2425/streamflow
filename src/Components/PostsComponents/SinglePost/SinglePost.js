@@ -8,31 +8,27 @@ import React, {
   useState,
 } from 'react'
 import { useUserContext } from '../../../Contexts/UserContext'
-
 import Dates from 'date-and-time'
 import { voteReducer } from '../../../Utils/voteHandler/voteReducer'
 import { initialVoteState } from '../../../Utils/voteHandler/initialVoteState'
-import axios from 'axios'
-import { useModal } from '../../../Contexts/ModalContext'
 import PostBody from './PostBody/PostBody'
 import PostHeader from './PostHeader/PostHeader'
 import PostLikes from './PostLikes/PostLikes'
 import PostComments from './PostComments/PostComments'
+import { useGeneralContext } from '../../../Contexts/GeneralContext'
 
 const SinglePost = ({ post, user }) => {
   const { title, body, postOwner, createdAt, upVote, downVote, comments } = post
-  const { popAlert } = useModal()
+  const { updateData: likeOrUnlikePost } = useGeneralContext()
   const {
-    userData: { username, token },
+    userData: { username },
   } = useUserContext()
   const [state, dispatch] = useReducer(
     voteReducer,
     initialVoteState({ upVote, downVote })
   )
-
-  const [readMore, setReadMore] = useState(false)
-  const [toggleUp, setToggleUp] = useState(true)
-  const [toggleDown, setToggleDown] = useState(true)
+  const [toggleUpVote, setToggleUpVote] = useState(true)
+  const [toggleDownVote, setToggleDownVote] = useState(true)
   const [sendRequest, setSendRequest] = useState(false)
   const [isUpVote, setIsUpVote] = useState(true)
   const [showComments, setShowComments] = useState(false)
@@ -42,11 +38,11 @@ const SinglePost = ({ post, user }) => {
     const hasDownVoted = downVote?.findIndex((name) => name === username)
     if (hasUpVoted >= 0) {
       dispatch({ type: 'UPVOTED_ALREADY' })
-      setToggleUp(false)
+      setToggleUpVote(false)
     }
     if (hasDownVoted >= 0) {
       dispatch({ type: 'DOWNVOTED_ALREADY' })
-      setToggleDown(false)
+      setToggleDownVote(false)
     }
   }, [])
 
@@ -56,20 +52,9 @@ const SinglePost = ({ post, user }) => {
       const data = isUpVote
         ? { upVote: state.upVote }
         : { downVote: state.downVote }
-      sendRequest &&
-        (async () =>
-          await axios({
-            url,
-            method: 'PATCH',
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              Authorization: `Bearer ${token}`,
-            },
-            data,
-          }))()
+      sendRequest && likeOrUnlikePost('PATCH', data, url)
     } catch (error) {
       console.log(error)
-      popAlert('Something went wrong!', 'danger')
     }
   }, [isUpVote, sendRequest, state.downVote, state.upVote])
 
@@ -95,21 +80,21 @@ const SinglePost = ({ post, user }) => {
   const voteHandler = useCallback(
     (flag) => {
       if (flag) {
-        setToggleUp((prev) => !prev)
+        setToggleUpVote((prev) => !prev)
         setIsUpVote(true)
-        toggleUp
+        toggleUpVote
           ? dispatch({ type: 'UP_VOTE_ADD', payload: username })
           : dispatch({ type: 'UP_VOTE_REMOVE', payload: username })
       } else {
-        setToggleDown((prev) => !prev)
+        setToggleDownVote((prev) => !prev)
         setIsUpVote(false)
-        toggleDown
+        toggleDownVote
           ? dispatch({ type: 'DOWN_VOTE_ADD', payload: username })
           : dispatch({ type: 'DOWN_VOTE_REMOVE', payload: username })
       }
       setSendRequest(true)
     },
-    [toggleDown, toggleUp, username]
+    [toggleDownVote, toggleUpVote, username]
   )
 
   return (
@@ -123,8 +108,6 @@ const SinglePost = ({ post, user }) => {
       <PostBody
         body={body}
         title={title}
-        readMore={readMore}
-        setReadMore={setReadMore}
         created_At={created_At}
         postImages={postImages}
       />

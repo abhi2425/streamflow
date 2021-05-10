@@ -42,6 +42,7 @@ const PostComments = ({
           date: new Date(),
           owner: username,
           _id: Math.round(Math.random() * 10 ** 10),
+          upVote: [],
         },
         ...commentsList,
       ])

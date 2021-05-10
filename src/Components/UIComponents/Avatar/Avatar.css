@@ -1,40 +1,52 @@
 .avatar-box:hover .icon-box {
-   opacity: 1;
+  opacity: 1;
 }
 .avatar-box:hover .avatar-large {
-   filter: blur(0.5rem);
+  filter: blur(0.5rem);
 }
 .avatar-small {
-   width: 4.5rem;
-   height: 4.5rem;
-   font-size: 4rem;
-   color: white;
+  width: 4.5rem;
+  height: 4.5rem;
+  font-size: 4rem;
+  color: white;
 }
 .avatar-small-profile {
-   width: 4.5rem;
-   height: 4.5rem;
-   font-size: 4rem;
-   color: var(--color-light-grey);
+  width: 4.5rem;
+  height: 4.5rem;
+  font-size: 4rem;
+  color: var(--color-light-grey);
 }
 .avatar-medium {
-   width: 10rem;
-   height: 10rem;
-   font-size: 7rem;
-   color: white;
+  width: 10rem;
+  height: 10rem;
+  font-size: 7rem;
+  color: white;
 }
 .avatar-large {
-   width: 15rem;
-   height: 15rem;
-   font-size: 12rem;
-   color: var(--color-light-grey);
+  width: 15rem;
+  height: 15rem;
+  font-size: 12rem;
+  color: var(--color-light-grey);
 }
 .avatar-profile {
-   width: 25rem;
-   height: 25rem;
-   font-size: 16rem;
-   color: var(--color-light-grey);
+  width: 25rem;
+  height: 25rem;
+  font-size: 16rem;
+  color: var(--color-light-grey);
 }
 .avatar-extra-large {
-   width: 40rem;
-   height: 40rem;
+  width: 40rem;
+  height: 40rem;
+}
+
+@media screen and (max-width: 650px) {
+  .avatar-small {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 3rem;
+  }
+  .avatar-medium {
+    width: 15rem;
+    height: 15rem;
+  }
 }

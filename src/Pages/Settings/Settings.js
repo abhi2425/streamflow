@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from 'react'
 import './Settings.css'
-import { RiMenuFoldLine } from 'react-icons/ri'
 import { useForm, Controller } from 'react-hook-form'
 import { useGeneralContext } from '../../Contexts/GeneralContext'
 import {
@@ -10,7 +9,6 @@ import {
 } from '../../Components/UIComponents/Loader/Loaders'
 import GenderList from '../../Components/FormComponents/ControlledInput/ControlledInput'
 import { genderOptions } from '../../Utils/selectsOptions'
-import SearchBar from '../../Components/SearchBar/SearchBar'
 import FormInput from '../../Components/FormComponents/FormInput/FormInput'
 import SocialMediaField from '../../Components/FormComponents/SocialMediaInput/SocialMediaInput'
 import ToolTip from '../../Components/UIComponents/Tooltip/Tooltip'
@@ -19,7 +17,7 @@ import { useHistory } from 'react-router'
 import { useModal } from '../../Contexts/ModalContext'
 import SaveAndCancel from '../../Components/UIComponents/SaveAndCancel/SaveAndCancel'
 
-const Settings = ({ showNav, setShowNav }) => {
+const Settings = () => {
   const history = useHistory()
   const { handleSubmit, errors, register, control } = useForm({
     mode: 'onBlur',
@@ -47,8 +45,17 @@ const Settings = ({ showNav, setShowNav }) => {
     const url = 'profile/user/me'
     const Data = { ...data, age: +data.age, gender: data.gender?.value }
     const message = 'Profile Updated !'
-    await changeSettings('Patch', Data, url, message)
-    // history.push(`/profile/${user.userName}`)
+    const response = await changeSettings('Patch', Data, url, message)
+    //response && history.push(`/profile/${user.userName}`)
+  }, [])
+
+  const deleteAccountHandler = useCallback(async (e) => {
+    e.preventDefault()
+    const url = 'profile/user/me'
+    let message = 'Your account has been deleted!'
+    const response = await changeSettings('DELETE', null, url, message)
+    response && localStorage.removeItem('user-data')
+    response && history.push(`/signup`)
   }, [])
 
   const cancelHandler = () =>
@@ -61,44 +68,24 @@ const Settings = ({ showNav, setShowNav }) => {
         </form>
       ),
     })
-
-  const deleteAccountHandler = useCallback(async (e) => {
-    e.preventDefault()
-    const url = 'profile/user/me'
-    let message = 'Your account has been deleted!'
-    const response = await changeSettings('DELETE', null, url, message)
-    response && localStorage.removeItem('user-data')
-    history.push(`/`)
-  }, [])
-
   if (pageLoading) return <StreamFlowLoading />
   return (
     <div className='page'>
-      <main
-        className='main flex-y-center'
-        onClick={() => showNav && setShowNav(false)}
-      >
-        <section className='search-head flex-x-between'>
-          <i
-            className='icon-blue menu-btn m-right-s'
-            onClick={() => setShowNav(true)}
-          >
-            <RiMenuFoldLine id='nav-menu-btn' />
-          </i>
-          <SearchBar />
+      <main className='main flex-x-center'>
+        <section
+          className={`edit-section margin-b-s flex-column ${
+            window.innerWidth >= 650 ? 'margin-t-l' : 'margin-t-m'
+          }`}
+        >
           <ToolTip />
-        </section>
-
-        <div className='flex-y-center'>
-          <Avatar
-            avatarImageUrl={user.avatar?.image}
-            iconClass={true}
-            imageClass='avatar-large transition'
-          />
-          <p className='username'>{user.userName}</p>
-        </div>
-
-        <section className='edit-section'>
+          <div className='flex-y-center'>
+            <Avatar
+              avatarImageUrl={user.avatar?.image}
+              iconClass={true}
+              imageClass='avatar-large transition'
+            />
+            <p className='username'>{user.userName}</p>
+          </div>
           <form
             className='flex-y-center margin-b-s'
             onSubmit={handleSubmit(onSubmit)}

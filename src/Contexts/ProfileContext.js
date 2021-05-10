@@ -5,19 +5,18 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import date from 'date-and-time'
 import { axios } from '../Utils/url'
-
-import { ImClock, ImLocation } from 'react-icons/im'
-import { IoSchoolSharp } from 'react-icons/io5'
-import { MdWork } from 'react-icons/md'
-import { CgChevronDoubleRightO } from 'react-icons/cg'
 import { useGeneralContext } from './GeneralContext'
 import { useHistory } from 'react-router-dom'
+import { generateUserDetailList } from '../Utils/userDetailsList'
+import { generateSocialMediaLinks } from '../Utils/socialMediaList'
 const ProfileContext = createContext()
 
 export const ProfileContextProvider = ({ children }) => {
   const [profile, setProfile] = useState({})
+  const [followers, setFollowers] = useState({})
+  const [followings, setFollowings] = useState({})
+
   const [pageLoading, setPageLoading] = useState(true)
   const [isFollowing, setIsFollowing] = useState(false)
   const { updateData: followHandler } = useGeneralContext()
@@ -28,14 +27,10 @@ export const ProfileContextProvider = ({ children }) => {
       setPageLoading(true)
       const { data: user } = await axios.get(`user/${uname}`)
       const { data: posts } = await axios.get(`${uname}/posts`)
-      const { data: followers } = await axios.get(`user/${uname}/followers`)
-      const { data: following } = await axios.get(`user/${uname}/following`)
-      if (user && posts && followers && following) {
+      if (user && posts) {
         setProfile({
           user,
           posts,
-          followers,
-          following,
         })
         setPageLoading(false)
       }
@@ -47,11 +42,19 @@ export const ProfileContextProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const getFollowers = useCallback(async (uname) => {
+    const { data: followers } = await axios.get(`user/${uname}/followers`)
+    setFollowers(followers)
+  }, [])
+  const getFollowings = useCallback(async (uname) => {
+    const { data: following } = await axios.get(`user/${uname}/following`)
+    setFollowings(following)
+  }, [])
+
   const getFollowingListOfLoggedInUser = useCallback(async (loggedInUser) => {
     try {
-      const { data: following } = await axios.get(
-        `user/${loggedInUser}/following`
-      )
+      const url = `user/${loggedInUser}/following`
+      const { data: following } = await axios.get(url)
       return following
     } catch (error) {
       console.log(error.message)
@@ -80,100 +83,54 @@ export const ProfileContextProvider = ({ children }) => {
       const response = await followHandler('PATCH', null, url, success)
       if (response) {
         setIsFollowing((prev) => !prev)
+        await getFollowers(username)
+        await getFollowings(username)
         return response
       }
     },
-    [followHandler, isFollowing]
+    [isFollowing, followHandler, getFollowers, getFollowings]
   )
-
-  const userDetails = useMemo(() => {
-    const user = profile.user
-    return [
-      {
-        icon: <ImClock />,
-        details: `Joined on-> ${date.format(
-          new Date(Date.parse(user?.createdAt)),
-          'ddd, MMM DD YYYY'
-        )}`,
-      },
-      {
-        icon: <IoSchoolSharp />,
-        details: (
-          <p>
-            {user?.eduQualification
-              ? `${user?.eduQualification.institution},
-                        ${user?.eduQualification.name},
-                        ${user?.eduQualification.subject}`
-              : 'Education'}
-          </p>
-        ),
-      },
-      {
-        icon: <CgChevronDoubleRightO />,
-        details:
-          user?.interests.length > 1 ? (
-            <p>
-              {user?.interests.map((interest, index) => (
-                <span key={index}>
-                  {user.interests.length - 1 !== index
-                    ? `${interest}, `
-                    : `${interest}`}
-                </span>
-              ))}
-            </p>
-          ) : (
-            <p>Interests</p>
-          ),
-      },
-      {
-        icon: <MdWork />,
-        details: (
-          <p>
-            {user?.currentlyWorking
-              ? `${user?.currentlyWorking?.description}, 
-                        ${user?.currentlyWorking?.startedIn}`
-              : 'Work'}
-          </p>
-        ),
-      },
-      {
-        icon: <ImLocation />,
-        details: (
-          <p>
-            {user?.address
-              ? `${user?.address?.country}, 
-                        ${user?.address?.state},`
-              : 'Address'}
-            <br />
-            {user?.address
-              ? `${user?.address?.city},
-                        ${user?.address?.pinCode}`
-              : ''}
-          </p>
-        ),
-      },
-    ]
-  }, [profile.user])
 
   const userDetailsList = useMemo(
     () =>
-      userDetails.map((item, index) => (
+      generateUserDetailList(profile.user).map((item, index) => (
         <li key={index} className='user-details-list'>
           <i className='icon icon-grey'>{item.icon}</i>
           <div className='content'>{item.details}</div>
         </li>
       )),
-    [userDetails]
+    [profile.user]
+  )
+
+  const socialMediaLinks = useMemo(
+    () =>
+      profile.user &&
+      generateSocialMediaLinks(profile.user).map(({ url, icon }, index) => {
+        const href = `https://${url}.com`
+        return (
+          <li key={index} style={{ display: 'block' }} className='m-left-s'>
+            <a href={href} target='blank'>
+              <i className='icon icon-blue transition'>{icon}</i>
+            </a>
+          </li>
+        )
+      }),
+    [profile.user]
   )
   //-----------------//
 
   const value = useMemo(
     () => ({
       profile,
+      followers,
+      followings,
       pageLoading,
       userDetailsList,
       isFollowing,
+      socialMediaLinks,
       getUserProfile,
+      getFollowers,
+      getFollowings,
       checkCommonFollowers,
       followUnfollowHandler,
     }),

@@ -7,11 +7,12 @@ import { useUserContext } from '../../Contexts/UserContext'
 import Avatar from '../UIComponents/Avatar/Avatar'
 import Spinner from '../UIComponents/Loader/Spinner'
 
-const FollowingList = ({ following }) => {
+const FollowingList = ({ following, params_username }) => {
   const { setShowModal } = useModal()
   const {
     userData: { username },
   } = useUserContext()
+  const { getFollowings } = useProfileContext()
   const { updateData: followerHandler } = useGeneralContext()
   const [isBtnLoading, setBtnLoading] = useState(false)
   const { checkCommonFollowers } = useProfileContext()
@@ -29,7 +30,9 @@ const FollowingList = ({ following }) => {
         setBtnLoading(false)
       }
     }
-    checkFollowingList()
+    let cancel = false
+    !cancel && checkFollowingList()
+    return () => (cancel = true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -40,6 +43,12 @@ const FollowingList = ({ following }) => {
     const success = `you ${isFollowing ? 'Unfollowed' : 'Followed'} ${username}`
     await followerHandler('PATCH', null, url, success)
   }, [followerHandler, following.userName, isFollowing])
+
+  // useEffect(() => {
+  //   console.log('f,f')
+
+  //   getFollowings(params_username)
+  // }, [followUnfollowHandler, getFollowings, params_username])
 
   return (
     <li className='follow-list flex-x-between'>

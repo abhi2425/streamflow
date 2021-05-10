@@ -14,11 +14,11 @@ import { useModal } from './Contexts/ModalContext'
 import Modal from './Components/PopupComponents/Modal/Modal'
 import Alert from './Components/PopupComponents/Alert/Alert'
 import ScrollBtn from './Components/UIComponents/ScrollBtn/ScrollButton'
-import Sidebar from './Components/Navigation/Sidebar/Sidebar'
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute'
 import { useUserContext } from './Contexts/UserContext'
 import { ProfileContextProvider } from './Contexts/ProfileContext'
 import { useGeneralContext } from './Contexts/GeneralContext'
+import Navbar from './Components/Navigation/Navbar/Navbar'
 
 const App = () => {
   const { showModal } = useModal()
@@ -26,9 +26,11 @@ const App = () => {
     userData: { token },
   } = useUserContext()
   const { fetchAuthUser } = useGeneralContext()
+  const [showNav, setShowNav] = useState(false)
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => fetchAuthUser(), [])
-  const [showNav, setShowNav] = useState(false)
+
   return (
     <>
       <Modal>{showModal.component}</Modal>
@@ -39,8 +41,8 @@ const App = () => {
         <Route exact path='/'>
           {token ? (
             <>
-              <Sidebar showNav={showNav} />
-              <Home setShowNav={setShowNav} showNav={showNav} />
+              <Navbar />
+              <Home />
             </>
           ) : (
             <Signup />
@@ -56,17 +58,19 @@ const App = () => {
           <Logout />
         </PrivateRoute>
         <PrivateRoute exact path='/profile/settings'>
-          <Sidebar showNav={showNav} />
+          <Navbar />
           <Settings setShowNav={setShowNav} showNav={showNav} />
         </PrivateRoute>
-        <PrivateRoute path='/profile/:username'>
-          <ProfileContextProvider>
+        <ProfileContextProvider>
+          <PrivateRoute path='/profile/:username'>
+            <Navbar />
             <Profile />
-          </ProfileContextProvider>
-        </PrivateRoute>
-        <PrivateRoute path='/post/:title'>
-          <EditPostPage />
-        </PrivateRoute>
+          </PrivateRoute>
+          <PrivateRoute path='/post/:title'>
+            <Navbar />
+            <EditPostPage />
+          </PrivateRoute>
+        </ProfileContextProvider>
         <Route path='*'>
           <Error />
         </Route>

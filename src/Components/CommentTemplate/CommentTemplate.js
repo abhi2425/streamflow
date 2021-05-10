@@ -22,28 +22,31 @@ const CommentTemplate = ({
   const [likeTheComment, setLikeTheComment] = useState(false)
   const [sendRequest, setSendRequest] = useState(false)
   const [commentUpVote, setCommentUpVote] = useState(comment.upVote?.length)
+
   useEffect(() => {
-    setLoading(true)
-    axios
-      .get(`user/${comment.owner}/avatar`)
-      .then((response) => {
-        setOwnerAvatar(response.data[0].data?.image)
-        setLoading(false)
-      })
-      .catch(() => setLoading(false))
-    localStorage.setItem(comment.owner, ownerAvatar)
+    let cancel = false
+    if (!cancel) {
+      setLoading(true)
+      axios
+        .get(`user/${comment.owner}/avatar`)
+        .then((response) => {
+          setOwnerAvatar(response.data[0].data?.image)
+          setLoading(false)
+        })
+        .catch(() => setLoading(false))
+      localStorage.setItem(comment.owner, ownerAvatar)
+    }
+    return () => (cancel = false)
   }, [comment.owner, ownerAvatar])
 
   useEffect(() => {
     const alreadyLiked = comment.upVote?.findIndex((name) => name === username)
     if (alreadyLiked >= 0) setLikeTheComment(true)
-  }, [comment.upVote, username])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (sendRequest) {
-      likeTheComment
-        ? setCommentUpVote(commentUpVote + 1)
-        : setCommentUpVote(commentUpVote - 1)
       const url = `/profile/post/${postOwner}/${title}/comment`
       const data = {
         ...comment,
@@ -56,8 +59,12 @@ const CommentTemplate = ({
 
   const likeHandler = useCallback(() => {
     setLikeTheComment((prev) => !prev)
+    console.log(likeTheComment)
+    !likeTheComment
+      ? setCommentUpVote((commentUpVote) => commentUpVote + 1)
+      : setCommentUpVote((commentUpVote) => commentUpVote - 1)
     setSendRequest(true)
-  }, [])
+  }, [likeTheComment])
 
   return (
     <li className='comment-details flex-row'>

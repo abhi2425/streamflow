@@ -1,27 +1,7 @@
 .main-profile {
   width: 100vw;
-  z-index: 10;
 }
-.profile-header {
-  position: relative;
-  padding: 1rem 3rem;
-  background-color: var(--color-profile-1);
-  width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 100;
-}
-.toolbox {
-  margin-left: 1.5rem;
-}
-.nav-tooltip {
-  background-color: var(--color-profile-1-light);
-  position: absolute;
-  top: 2rem;
-  right: 1.5rem;
-  display: none;
-  z-index: 50;
-}
+
 .profile-description {
   z-index: 10;
   position: absolute;
@@ -43,7 +23,6 @@
 .profile-section {
   margin-top: 2rem;
   width: var(--profile-page-width);
-  padding: 2.5rem;
 }
 .profile-details {
   cursor: pointer;
@@ -81,6 +60,7 @@
   text-align: center;
 }
 .edit-profile a {
+  cursor: pointer;
   color: white;
   padding: 0.8rem 1.4rem;
   border-radius: 0.5rem;
@@ -108,15 +88,12 @@
   .main-profile {
     width: auto;
   }
-  .profile-header {
-    padding: 1rem;
-  }
   .profile-section {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    padding: 0;
+    padding: 1rem;
   }
   .profile-description {
     top: 25rem;

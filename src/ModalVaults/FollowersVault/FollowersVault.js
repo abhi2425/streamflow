@@ -19,9 +19,13 @@ const FollowersVault = ({ followData, active, params_username }) => {
   const followingList = useMemo(
     () =>
       followData.following?.map((following, index) => (
-        <FollowingList following={following} key={index} />
+        <FollowingList
+          following={following}
+          key={index}
+          params_username={params_username}
+        />
       )),
-    [followData?.following]
+    [followData.following, params_username]
   )
   return (
     <section

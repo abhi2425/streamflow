@@ -17,7 +17,7 @@
 }
 .scrollBtn:hover {
   color: var(--color-profile-1);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--color-transparent-1);
 }
 .scrollBtn:focus {
   outline: none;

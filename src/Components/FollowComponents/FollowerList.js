@@ -29,7 +29,9 @@ const FollowerList = ({ follower, params_username }) => {
         setBtnLoading(false)
       }
     }
-    username !== params_username && checkFollowingList()
+    let cancel = false
+    if (!cancel) username !== params_username && checkFollowingList()
+    return () => (cancel = true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

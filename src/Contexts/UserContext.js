@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
   createContext,
   useCallback,
@@ -16,7 +17,6 @@ export const UserContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(() => getUserFromLocalStorage())
   const { popAlert } = useModal()
   const history = useHistory()
-  console.log('userContext----------------->')
 
   const signIn_login_OnSubmit = useCallback(
     async (formData, url) => {
@@ -59,7 +59,6 @@ export const UserContextProvider = ({ children }) => {
         )
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [setIsLoading, setUserData]
   )
   const logoutUser = useCallback(async () => {
@@ -72,13 +71,14 @@ export const UserContextProvider = ({ children }) => {
           Authorization: `Bearer ${userData?.token}`,
         },
       })
-      response && localStorage.removeItem('user-data')
-      response && localStorage.removeItem('avatar')
-      response && history.push('/signup')
+      if (response) {
+        const keys = Object.keys(localStorage)
+        for (const key of keys) localStorage.removeItem(key)
+        history.push('/signup')
+      }
     } catch (error) {
       console.log(error.message)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData?.token])
 
   const value = useMemo(
@@ -88,7 +88,6 @@ export const UserContextProvider = ({ children }) => {
       logoutUser,
       signIn_login_OnSubmit,
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [isLoading, userData]
   )
 

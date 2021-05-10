@@ -87,6 +87,9 @@
 .margin-t-s {
   margin-top: 2rem;
 }
+.margin-t-ex-s {
+  margin-top: 0.8rem;
+}
 .m-left-s {
   margin-left: 2rem;
 }
@@ -146,7 +149,7 @@
   cursor: pointer;
 }
 .icon-blue {
-  font-size: 3.7rem;
+  font-size: 3.5rem;
 }
 .icon-blue-small {
   font-size: 2.5rem;
@@ -159,7 +162,7 @@
 }
 .icon-blue:hover,
 .icon-blue-small:hover {
-  color: var(--color-profile-1-light);
+  color: var(--color-profile-1);
 }
 
 .icon-box {

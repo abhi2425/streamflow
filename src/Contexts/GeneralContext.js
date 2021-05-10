@@ -69,10 +69,7 @@ export const GeneralContextProvider = ({ children }) => {
         if (response) {
           setIsBtnLoading(false)
           method === 'DELETE' && (await fetchAuthUser())
-          url.includes('post/create') ||
-            url.includes('post/update') ||
-            url.includes('/comment') ||
-            popAlert(success, 'success')
+          success && popAlert(success, 'success')
           return response
         }
       } catch (error) {

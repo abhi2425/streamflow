@@ -1,7 +1,7 @@
 :root {
    --color-profile-1: #6146d8;
-   --color-profile-1-light: #7c7eec;
-   --color-profile-2: #6950ed;
+   --color-profile-1-light: #7677d4;
+   --color-profile-2: #7e69e6;
     --color-profile-2-light: #8c8dd1;
    --color-profile-3: #75e9e9;
    --color-cancel: #f82121;
@@ -80,7 +80,7 @@ h1 {
 .logo a {
    display: block;
    font-family: "Redressed", "Cursive";
-   font-size: 5.5rem;
+   font-size: 4rem;
    font-weight: normal;
    color: white;
    text-decoration: none;
@@ -93,12 +93,17 @@ h1 {
 }
 @media screen and (max-width: 650px) {
    .main {
-      padding: 5rem;
-      width: auto;
-      margin-left: 0;
+      padding: 2rem;
    }
     .page {
     width: auto;
     display: block;
   }
+  .logo a{
+     font-size: 3.5rem;
+  }
+  .create-post-logo-small {
+   width: 3.5rem;
+   height: 3.5rem;
+}
 }

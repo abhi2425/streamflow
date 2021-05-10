@@ -12,7 +12,7 @@ const FollowingList = ({ following, params_username }) => {
   const {
     userData: { username },
   } = useUserContext()
-  const { getFollowings } = useProfileContext()
+  // const { getFollowings } = useProfileContext()
   const { updateData: followerHandler } = useGeneralContext()
   const [isBtnLoading, setBtnLoading] = useState(false)
   const { checkCommonFollowers } = useProfileContext()

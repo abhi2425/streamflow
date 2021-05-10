@@ -46,7 +46,7 @@ const Settings = () => {
     const Data = { ...data, age: +data.age, gender: data.gender?.value }
     const message = 'Profile Updated !'
     const response = await changeSettings('Patch', Data, url, message)
-    //response && history.push(`/profile/${user.userName}`)
+    response && history.push(`/profile/${user.userName}`)
   }, [])
 
   const deleteAccountHandler = useCallback(async (e) => {

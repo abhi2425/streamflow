@@ -29,7 +29,6 @@ export const UserContextProvider = ({ children }) => {
           headers,
           data: formData,
         })
-
         if (data) {
           const message = `Hii ${data.user?.userName} welcome in streamFlow!`
           setUserData({
@@ -52,24 +51,23 @@ export const UserContextProvider = ({ children }) => {
           popAlert(message, 'success', setIsLoading)
         }
       } catch (e) {
-        popAlert(
-          'Something went wrong ! please try again',
-          'danger',
-          setIsLoading
-        )
+        const message = 'Wrong Credentials! Plz try again.'
+        popAlert(message, setIsLoading)
       }
     },
     [setIsLoading, setUserData]
   )
+
   const logoutUser = useCallback(async () => {
     try {
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${userData?.token}`,
+      }
       const response = await axios({
         url: 'profile/user/logout',
         method: 'POST',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          Authorization: `Bearer ${userData?.token}`,
-        },
+        headers,
       })
       if (response) {
         const keys = Object.keys(localStorage)

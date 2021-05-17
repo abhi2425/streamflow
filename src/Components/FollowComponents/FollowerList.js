@@ -18,18 +18,20 @@ const FollowerList = ({ follower, params_username }) => {
   const [isFollowing, setIsFollowing] = useState(false)
 
   useEffect(() => {
+    let cancel = false
     const checkFollowingList = async () => {
       setBtnLoading(true)
       const isFound = await checkCommonFollowers(follower.userName, username)
-      if (isFound >= 0) {
-        setIsFollowing(true)
-        setBtnLoading(false)
-      } else {
-        setIsFollowing(false)
-        setBtnLoading(false)
+      if (!cancel) {
+        if (isFound >= 0) {
+          setIsFollowing(true)
+          setBtnLoading(false)
+        } else {
+          setIsFollowing(false)
+          setBtnLoading(false)
+        }
       }
     }
-    let cancel = false
     if (!cancel) username !== params_username && checkFollowingList()
     return () => (cancel = true)
     // eslint-disable-next-line react-hooks/exhaustive-deps

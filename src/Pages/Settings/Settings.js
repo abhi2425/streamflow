@@ -43,8 +43,15 @@ const Settings = () => {
 
   const onSubmit = useCallback(async (data) => {
     const url = 'profile/user/me'
-    const Data = { ...data, age: +data.age, gender: data.gender?.value }
+    const Data = {
+      ...data,
+      age: +data.age,
+      gender: data.gender?.value,
+      socialMedia: data.socialMedia ? data.socialMedia : [],
+    }
     const message = 'Profile Updated !'
+    console.log(Data)
+
     const response = await changeSettings('Patch', Data, url, message)
     response && history.push(`/profile/${user.userName}`)
   }, [])

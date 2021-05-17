@@ -25,18 +25,19 @@ const CommentTemplate = ({
 
   useEffect(() => {
     let cancel = false
-    if (!cancel) {
-      setLoading(true)
-      axios
-        .get(`user/${comment.owner}/avatar`)
-        .then((response) => {
+    setLoading(true)
+    axios
+      .get(`user/${comment.owner}/avatar`)
+      .then((response) => {
+        if (!cancel) {
           setOwnerAvatar(response.data[0].data?.image)
           setLoading(false)
-        })
-        .catch(() => setLoading(false))
-      localStorage.setItem(comment.owner, ownerAvatar)
-    }
-    return () => (cancel = false)
+        }
+      })
+      .catch(() => setLoading(false))
+    localStorage.setItem(comment.owner, ownerAvatar)
+
+    return () => (cancel = true)
   }, [comment.owner, ownerAvatar])
 
   useEffect(() => {

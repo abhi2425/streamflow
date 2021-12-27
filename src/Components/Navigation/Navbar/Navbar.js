@@ -46,6 +46,7 @@ const Navbar = () => {
         icon={icon}
         label={label}
         listClass='links shift-color'
+        onClick={() => setShowToolTip(false)}
       />
     ))
   }, [username])

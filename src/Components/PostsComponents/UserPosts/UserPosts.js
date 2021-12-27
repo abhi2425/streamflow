@@ -6,6 +6,7 @@ const UserPosts = () => {
   const {
     profile: { posts, user },
   } = useProfileContext()
+
   const userPosts = useMemo(
     () =>
       posts?.map((post, postIndex) => (
@@ -20,7 +21,7 @@ const UserPosts = () => {
         />
       )),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [posts]
+    [posts, user]
   )
   return <section className='post-width'>{userPosts}</section>
 }

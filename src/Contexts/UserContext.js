@@ -52,7 +52,8 @@ export const UserContextProvider = ({ children }) => {
         }
       } catch (e) {
         const message = 'Wrong Credentials! Plz try again.'
-        popAlert(message, setIsLoading)
+        setIsLoading(false)
+        popAlert(message, 'danger', setIsLoading)
       }
     },
     [setIsLoading, setUserData]

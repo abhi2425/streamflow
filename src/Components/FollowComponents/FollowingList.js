@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGeneralContext } from '../../Contexts/GeneralContext'
 import { useModal } from '../../Contexts/ModalContext'
@@ -12,17 +12,16 @@ const FollowingList = ({ following, params_username }) => {
   const {
     userData: { username },
   } = useUserContext()
-  // const { getFollowings } = useProfileContext()
   const { updateData: followerHandler } = useGeneralContext()
   const [isBtnLoading, setBtnLoading] = useState(false)
-  const { checkCommonFollowers } = useProfileContext()
+  const { checkCommonFollowers, getFollowings } = useProfileContext()
   const [isFollowing, setIsFollowing] = useState(false)
 
   useEffect(() => {
     let cancel = false
     const checkFollowingList = async () => {
       setBtnLoading(true)
-      const isFound = await checkCommonFollowers(following.userName, username)
+      const isFound = await checkCommonFollowers(following?.userName, username)
       if (!cancel) {
         if (isFound >= 0) {
           setIsFollowing(true)
@@ -36,21 +35,16 @@ const FollowingList = ({ following, params_username }) => {
     !cancel && checkFollowingList()
     return () => (cancel = true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [following?.userName, username])
 
-  const followUnfollowHandler = useCallback(async () => {
+  const followUnfollowHandler = async () => {
     setBtnLoading(true)
     const username = following.userName
     const url = `profile/user/${username}/followOrUnfollow`
     const success = `you ${isFollowing ? 'Unfollowed' : 'Followed'} ${username}`
     await followerHandler('PATCH', null, url, success)
-  }, [followerHandler, following.userName, isFollowing])
-
-  // useEffect(() => {
-  //   console.log('f,f')
-
-  //   getFollowings(params_username)
-  // }, [followUnfollowHandler, getFollowings, params_username])
+    await getFollowings(params_username)
+  }
 
   return (
     <li className='follow-list flex-x-between'>

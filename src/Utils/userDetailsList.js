@@ -7,7 +7,7 @@ import date from 'date-and-time'
 export const generateUserDetailList = (user) => [
   {
     icon: <ImClock />,
-    details: `Joined on-> ${date.format(
+    details: `Joined on-: ${date.format(
       new Date(Date.parse(user?.createdAt)),
       'ddd, MMM DD YYYY'
     )}`,

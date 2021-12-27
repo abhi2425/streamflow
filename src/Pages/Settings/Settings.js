@@ -16,6 +16,7 @@ import Avatar from '../../Components/UIComponents/Avatar/Avatar'
 import { useHistory } from 'react-router'
 import { useModal } from '../../Contexts/ModalContext'
 import SaveAndCancel from '../../Components/UIComponents/SaveAndCancel/SaveAndCancel'
+import { useProfileContext } from '../../Contexts/ProfileContext'
 
 const Settings = () => {
   const history = useHistory()
@@ -28,6 +29,7 @@ const Settings = () => {
     isBtnLoading,
     updateData: changeSettings,
   } = useGeneralContext()
+  const { getUserProfile } = useProfileContext()
   const { setShowModal } = useModal()
   const [age, setAge] = useState(0)
 
@@ -41,20 +43,23 @@ const Settings = () => {
     setAge(now.getFullYear() - birthday.getFullYear())
   }, [])
 
-  const onSubmit = useCallback(async (data) => {
-    const url = 'profile/user/me'
-    const Data = {
-      ...data,
-      age: +data.age,
-      gender: data.gender?.value,
-      socialMedia: data.socialMedia ? data.socialMedia : [],
-    }
-    const message = 'Profile Updated !'
-    console.log(Data)
+  const onSubmit = useCallback(
+    async (data) => {
+      const url = 'profile/user/me'
+      const Data = {
+        ...data,
+        age: +data.age,
+        gender: data.gender?.value,
+        socialMedia: data.socialMedia ? data.socialMedia : [],
+      }
+      const message = 'Profile Updated !'
 
-    const response = await changeSettings('Patch', Data, url, message)
-    response && history.push(`/profile/${user.userName}`)
-  }, [])
+      const response = await changeSettings('Patch', Data, url, message)
+      await getUserProfile(user?.userName)
+      response && history.push(`/profile/${user.userName}`)
+    },
+    [user?.userName]
+  )
 
   const deleteAccountHandler = useCallback(async (e) => {
     e.preventDefault()

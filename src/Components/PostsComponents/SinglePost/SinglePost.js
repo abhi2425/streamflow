@@ -15,11 +15,12 @@ import PostBody from './PostBody/PostBody'
 import PostHeader from './PostHeader/PostHeader'
 import PostLikes from './PostLikes/PostLikes'
 import PostComments from './PostComments/PostComments'
-import { useGeneralContext } from '../../../Contexts/GeneralContext'
+import { request } from '../../../Utils/url'
 
 const SinglePost = ({ post, user }) => {
   const { title, body, postOwner, createdAt, upVote, downVote, comments } = post
-  const { updateData: likeOrUnlikePost } = useGeneralContext()
+    ? post
+    : {}
   const {
     userData: { username },
   } = useUserContext()
@@ -46,16 +47,12 @@ const SinglePost = ({ post, user }) => {
     }
   }, [])
 
-  useEffect(() => {
-    try {
-      const url = `profile/post/votes/${title}`
-      const data = isUpVote
-        ? { upVote: state.upVote }
-        : { downVote: state.downVote }
-      sendRequest && likeOrUnlikePost('PATCH', data, url)
-    } catch (error) {
-      console.log(error)
-    }
+  useEffect(async () => {
+    const url = `profile/post/votes/${title}`
+    const data = isUpVote
+      ? { upVote: state.upVote }
+      : { downVote: state.downVote }
+    sendRequest && (await request(url, 'PATCH', data))
   }, [isUpVote, sendRequest, state.downVote, state.upVote])
 
   const created_At = useMemo(() => {
@@ -66,14 +63,17 @@ const SinglePost = ({ post, user }) => {
   const postImages = useMemo(
     () =>
       post.blogImages?.map((item, imageIndex) => (
-        <a href={item.image} target='blank' key={`${imageIndex}-image`}>
-          <img
-            loading='lazy'
-            src={item.image}
-            alt={`postImage-${imageIndex}`}
-            className='margin-s'
-          />
-        </a>
+        <div key={`${imageIndex}-image`} style={{ maxWidth: '450px' }}>
+          <a href={item.image} target='blank'>
+            <img
+              style={{ width: '100%' }}
+              loading='lazy'
+              src={item.image}
+              alt={`postImage-${imageIndex}`}
+              className='margin-s'
+            />
+          </a>
+        </div>
       )),
     [post.blogImages]
   )
@@ -117,13 +117,15 @@ const SinglePost = ({ post, user }) => {
         setShowComments={setShowComments}
         showComments={showComments}
       />
-      <PostComments
-        username={username}
-        comments={comments}
-        title={title}
-        postOwner={postOwner}
-        showComments={showComments}
-      />
+      {showComments && (
+        <PostComments
+          username={username}
+          comments={comments}
+          title={title}
+          postOwner={postOwner}
+          showComments={showComments}
+        />
+      )}
     </article>
   )
 }

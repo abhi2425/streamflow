@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import Dates from 'date-and-time'
 import { BsFillHeartFill } from 'react-icons/bs'
 import Avatar from '../UIComponents/Avatar/Avatar'
@@ -20,14 +20,18 @@ const CommentTemplate = ({
   const [ownerAvatar, setOwnerAvatar] = useState('')
   const [loading, setLoading] = useState(true)
   const [likeTheComment, setLikeTheComment] = useState(false)
-  const [sendRequest, setSendRequest] = useState(false)
-  const [commentUpVote, setCommentUpVote] = useState(comment.upVote?.length)
+  const [commentUpVote, setCommentUpVote] = useState(comment?.upVote?.length)
+
+  useEffect(
+    () => setCommentUpVote(comment?.upVote?.length),
+    [comment?.upVote?.length]
+  )
 
   useEffect(() => {
     let cancel = false
     setLoading(true)
     axios
-      .get(`user/${comment.owner}/avatar`)
+      .get(`user/${comment?.owner}/avatar`)
       .then((response) => {
         if (!cancel) {
           setOwnerAvatar(response.data[0].data?.image)
@@ -38,34 +42,26 @@ const CommentTemplate = ({
     localStorage.setItem(comment.owner, ownerAvatar)
 
     return () => (cancel = true)
-  }, [comment.owner, ownerAvatar])
+  }, [comment?.owner, ownerAvatar])
 
   useEffect(() => {
     const alreadyLiked = comment.upVote?.findIndex((name) => name === username)
-    if (alreadyLiked >= 0) setLikeTheComment(true)
+    if (alreadyLiked !== -1) setLikeTheComment(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [comment?.upVote])
 
-  useEffect(() => {
-    if (sendRequest) {
-      const url = `/profile/post/${postOwner}/${title}/comment`
-      const data = {
-        ...comment,
-        upVote: [username],
-      }
-      ;(async () => await postComment('PATCH', data, url))()
+  const likeHandler = async () => {
+    const url = `/profile/post/${postOwner}/${title}/comment`
+    const data = {
+      ...comment,
+      upVote: [username],
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sendRequest, likeTheComment])
-
-  const likeHandler = useCallback(() => {
     setLikeTheComment((prev) => !prev)
-    console.log(likeTheComment)
     !likeTheComment
       ? setCommentUpVote((commentUpVote) => commentUpVote + 1)
       : setCommentUpVote((commentUpVote) => commentUpVote - 1)
-    setSendRequest(true)
-  }, [likeTheComment])
+    await postComment('PATCH', data, url)
+  }
 
   return (
     <li className='comment-details flex-row'>
@@ -93,13 +89,15 @@ const CommentTemplate = ({
             <p>{comment.description}</p>
           </div>
 
-          <div className='flex-y-center' style={{ marginLeft: '1rem' }}>
-            <i className='icon icon-small' onClick={likeHandler}>
-              <BsFillHeartFill
-                fill={likeTheComment ? 'crimson' : 'var(--color-dark-grey)'}
-              />
-            </i>
-          </div>
+          {comment?.owner === username ? null : (
+            <div className='flex-y-center' style={{ marginLeft: '1rem' }}>
+              <i className='icon icon-small' onClick={likeHandler}>
+                <BsFillHeartFill
+                  fill={likeTheComment ? 'crimson' : 'var(--color-dark-grey)'}
+                />
+              </i>
+            </div>
+          )}
         </div>
 
         <div className='comment-time flex-row'>

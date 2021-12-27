@@ -7,12 +7,11 @@ import { useGeneralContext } from '../../Contexts/GeneralContext'
 import SaveAndCancel from '../../Components/UIComponents/SaveAndCancel/SaveAndCancel'
 import axios from 'axios'
 import { useHistory } from 'react-router'
-import { useUserContext } from '../../Contexts/UserContext'
+import { useProfileContext } from '../../Contexts/ProfileContext'
 
 const CreatePostVault = ({ post, editingMode }) => {
-  const {
-    userData: { username },
-  } = useUserContext()
+  const { getUserProfile } = useProfileContext()
+
   const {
     createORupdatePost,
     isBtnLoading,
@@ -45,9 +44,11 @@ const CreatePostVault = ({ post, editingMode }) => {
       const method = editingMode ? 'PATCH' : 'POST'
       const success = editingMode ? 'Post Updated!' : 'Post Created!'
       const result = await createORupdatePost(method, url, success, data)
-      result && history.push(`/profile/${username}`)
+      await getUserProfile(userName)
+      result && history.push(`/profile/${userName}`)
     },
-    [editingMode, post?.title, createORupdatePost, history, username]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [editingMode, post?.title, userName]
   )
   return (
     <form id='post' onSubmit={handleSubmit(onSubmit)} className='vault-style'>

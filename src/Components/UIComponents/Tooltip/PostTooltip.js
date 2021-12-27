@@ -3,11 +3,17 @@ import { BsThreeDotsVertical } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import { useGeneralContext } from '../../../Contexts/GeneralContext'
 import { useModal } from '../../../Contexts/ModalContext'
+import { useProfileContext } from '../../../Contexts/ProfileContext'
 import SaveAndCancel from '../SaveAndCancel/SaveAndCancel'
 
 const PostTooltip = ({ title }) => {
   const { setShowModal } = useModal()
-  const { updateData: deletePost } = useGeneralContext()
+  const {
+    updateData: deletePost,
+    fetchData,
+    user: { userName },
+  } = useGeneralContext()
+  const { getUserProfile } = useProfileContext()
   const [showTooltip, setShowTooltip] = useState(false)
 
   const deletePostHandler = useCallback(
@@ -16,11 +22,13 @@ const PostTooltip = ({ title }) => {
       try {
         const url = `profile/post/delete/${title}`
         await deletePost('DELETE', null, url, 'Post deleted !')
+        await getUserProfile(userName)
       } catch (error) {
         console.log(error)
       }
     },
-    [deletePost, title]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [title, fetchData, userName]
   )
   const deleteButtonHandler = () =>
     setShowModal({

@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGeneralContext } from '../../Contexts/GeneralContext'
 import { useModal } from '../../Contexts/ModalContext'
@@ -14,14 +14,14 @@ const FollowerList = ({ follower, params_username }) => {
   } = useUserContext()
   const { updateData: followerHandler } = useGeneralContext()
   const [isBtnLoading, setBtnLoading] = useState(false)
-  const { checkCommonFollowers } = useProfileContext()
+  const { checkCommonFollowers, getFollowers } = useProfileContext()
   const [isFollowing, setIsFollowing] = useState(false)
 
   useEffect(() => {
     let cancel = false
     const checkFollowingList = async () => {
       setBtnLoading(true)
-      const isFound = await checkCommonFollowers(follower.userName, username)
+      const isFound = await checkCommonFollowers(follower?.userName, username)
       if (!cancel) {
         if (isFound >= 0) {
           setIsFollowing(true)
@@ -35,23 +35,25 @@ const FollowerList = ({ follower, params_username }) => {
     if (!cancel) username !== params_username && checkFollowingList()
     return () => (cancel = true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [follower?.userName, username])
 
-  const removeFollowerHandler = useCallback(async () => {
+  const removeFollowerHandler = async () => {
     setBtnLoading(true)
     const username = follower.userName
     const url = `/profile/user/remove/${username}`
     const success = `${username} removed from your followers list.`
     await followerHandler('PATCH', null, url, success)
-  }, [follower.userName, followerHandler])
+    await getFollowers(params_username)
+  }
 
-  const followUnfollowHandler = useCallback(async () => {
+  const followUnfollowHandler = async () => {
     setBtnLoading(true)
     const username = follower.userName
     const url = `profile/user/${username}/followOrUnfollow`
     const success = `you ${isFollowing ? 'Unfollowed' : 'Followed'} ${username}`
     await followerHandler('PATCH', null, url, success)
-  }, [follower.userName, followerHandler, isFollowing])
+    await getFollowers(params_username)
+  }
 
   const defaultButton = username === params_username ? 'remove' : 'Follow'
   return (

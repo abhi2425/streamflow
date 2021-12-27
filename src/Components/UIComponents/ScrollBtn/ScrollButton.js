@@ -20,7 +20,7 @@ const ScrollButton = () => {
 
   return (
     <button
-      className={`${pageHeight > 150 && 'showScrollBtn'} scrollBtn transition`}
+      className={`${pageHeight > 650 && 'showScrollBtn'} scrollBtn transition`}
       onClick={scrollToTopHandler}
     >
       <FaAngleDoubleUp />

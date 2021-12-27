@@ -1,4 +1,4 @@
-import { axios } from '../Utils/url'
+import { axios, request } from '../Utils/url'
 import React, {
   createContext,
   useCallback,
@@ -28,7 +28,6 @@ export const GeneralContextProvider = ({ children }) => {
       if (data) {
         setPageLoading(false)
         setUser(data)
-        console.log(data)
       }
     } catch (error) {
       console.log(error.message)
@@ -47,7 +46,6 @@ export const GeneralContextProvider = ({ children }) => {
         })
         .catch((error) => {
           setIsVaultLoading(false)
-          console.log(error)
         })
     },
     [username]
@@ -55,27 +53,17 @@ export const GeneralContextProvider = ({ children }) => {
 
   const updateData = useCallback(
     async (method, data = null, url, success) => {
-      try {
-        setIsBtnLoading(true)
-        const response = await axios({
-          url,
-          method,
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            Authorization: `Bearer ${token}`,
-          },
-          data,
-        })
-        if (response) {
-          setIsBtnLoading(false)
-          method === 'DELETE' && (await fetchAuthUser())
-          success && popAlert(success, 'success')
-          return response
-        }
-      } catch (error) {
+      setIsBtnLoading(true)
+      const { status, response } = await request(url, method, data)
+      if (status === 'success') {
+        setIsBtnLoading(false)
+        method === 'DELETE' && (await fetchAuthUser())
+        success && popAlert(success, 'success')
+        return response
+      }
+      if (status === 'failure') {
         setIsBtnLoading(false)
         popAlert('Something Went Wrong!', 'danger')
-        console.log(error)
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,30 +72,24 @@ export const GeneralContextProvider = ({ children }) => {
 
   const uploadPicture = useCallback(
     async (images, url, success) => {
-      try {
-        setIsBtnLoading(true)
-        const formData = new FormData()
-        const fieldValue = url.includes('/avatar') ? 'avatar' : 'blogImages'
-        for (let image of images) formData.append(fieldValue, image)
+      const formData = new FormData()
+      const fieldValue = url.includes('/avatar') ? 'avatar' : 'blogImages'
+      const headers = {
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*',
+      }
+      for (let image of images) formData.append(fieldValue, image)
 
-        const response = await axios({
-          url,
-          method: 'POST',
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'Access-Control-Allow-Origin': '*',
-            Authorization: `Bearer ${token}`,
-          },
-          data: formData,
-        })
-        if (response) {
-          setIsBtnLoading(false)
-          fieldValue === 'avatar' && (await fetchAuthUser())
-          url.includes('profile/post/upload') || popAlert(success, 'success')
-          return response
-        }
-      } catch (error) {
-        console.log(error)
+      setIsBtnLoading(true)
+      const { status, response } = await request(url, 'POST', formData, headers)
+
+      if (status === 'success') {
+        setIsBtnLoading(false)
+        fieldValue === 'avatar' && (await fetchAuthUser())
+        url.includes('profile/post/upload') || popAlert(success, 'success')
+        return response
+      }
+      if (status === 'failure') {
         setIsBtnLoading(false)
         popAlert(`couldn't upload the post!`, 'danger')
       }

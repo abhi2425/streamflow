@@ -4,8 +4,14 @@ export const getUserFromLocalStorage = () => {
     : { userName: null, token: null, avatarUrl: null }
 }
 
-// export const getProfileFromLocalStorage = () => {
-//   return localStorage.getItem('user-profile')
-//     ? JSON.parse(localStorage.getItem('user-profile'))
-//     : {}
-// }
+export const getDataFromLocalStorage = (key) => {
+  try {
+    const data = localStorage.getItem(key)
+    if (data) return JSON.parse(data)
+
+    return null
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}

@@ -16,9 +16,9 @@ import Alert from './Components/PopupComponents/Alert/Alert'
 import ScrollBtn from './Components/UIComponents/ScrollBtn/ScrollButton'
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute'
 import { useUserContext } from './Contexts/UserContext'
-import { ProfileContextProvider } from './Contexts/ProfileContext'
 import { useGeneralContext } from './Contexts/GeneralContext'
 import Navbar from './Components/Navigation/Navbar/Navbar'
+import { PostContextProvider } from './Contexts/PostContext'
 
 const App = () => {
   const { showModal } = useModal()
@@ -40,10 +40,10 @@ const App = () => {
       <Switch>
         <Route exact path='/'>
           {token ? (
-            <>
+            <PostContextProvider>
               <Navbar />
               <Home />
-            </>
+            </PostContextProvider>
           ) : (
             <Signup />
           )}
@@ -61,16 +61,14 @@ const App = () => {
           <Navbar />
           <Settings setShowNav={setShowNav} showNav={showNav} />
         </PrivateRoute>
-        <ProfileContextProvider>
-          <PrivateRoute path='/profile/:username'>
-            <Navbar />
-            <Profile />
-          </PrivateRoute>
-          <PrivateRoute path='/post/:title'>
-            <Navbar />
-            <EditPostPage />
-          </PrivateRoute>
-        </ProfileContextProvider>
+        <PrivateRoute path='/profile/:username'>
+          <Navbar />
+          <Profile />
+        </PrivateRoute>
+        <PrivateRoute path='/post/:title'>
+          <Navbar />
+          <EditPostPage />
+        </PrivateRoute>
         <Route path='*'>
           <Error />
         </Route>

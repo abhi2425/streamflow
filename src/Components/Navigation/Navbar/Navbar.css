@@ -33,9 +33,7 @@
   right: 0;
   z-index: -1;
 }
-.links {
-  padding: 0.5rem 2rem;
-}
+
 .links:last-child {
   border-top: 0.15rem solid white;
 }
@@ -48,9 +46,9 @@
   text-transform: capitalize;
   letter-spacing: 0.02rem;
   align-self: center;
-  margin-left: 2rem;
   font-weight: 400;
   width: 100%;
+  padding: 1rem 2.2rem;
 }
 .links i {
   font-size: 1.8rem;

@@ -1,4 +1,4 @@
-import { FaHome, FaUserAlt, FaBox } from 'react-icons/fa'
+import { FaHome, FaUserAlt } from 'react-icons/fa'
 import { VscSettingsGear } from 'react-icons/vsc'
 import { IoLogOut } from 'react-icons/io5'
 

@@ -13,13 +13,15 @@ import FormInput from '../../Components/FormComponents/FormInput/FormInput'
 import SocialMediaField from '../../Components/FormComponents/SocialMediaInput/SocialMediaInput'
 import ToolTip from '../../Components/UIComponents/Tooltip/Tooltip'
 import Avatar from '../../Components/UIComponents/Avatar/Avatar'
-import { useHistory } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import { useModal } from '../../Contexts/ModalContext'
 import SaveAndCancel from '../../Components/UIComponents/SaveAndCancel/SaveAndCancel'
 import { useProfileContext } from '../../Contexts/ProfileContext'
 
 const Settings = () => {
   const history = useHistory()
+  const { username } = useParams()
+
   const { handleSubmit, errors, register, control } = useForm({
     mode: 'onBlur',
   })
@@ -36,6 +38,15 @@ const Settings = () => {
   useEffect(() => {
     document.title = 'StreamFlow | Settings'
   }, [])
+
+  useEffect(() => {
+    let cancel = false
+    if (!cancel) {
+      getUserProfile(username)
+    }
+    return () => (cancel = true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [username])
 
   const getAgeHandler = useCallback((e) => {
     const birthday = new Date(Date.parse(e.target.value))

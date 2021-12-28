@@ -48,12 +48,6 @@ const Profile = () => {
   }, [params_username])
 
   useEffect(() => {
-    getFollowers(params_username)
-    getFollowings(params_username)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params_username])
-
-  useEffect(() => {
     let cancel = false
     if (!cancel)
       username !== params_username &&
@@ -110,7 +104,10 @@ const Profile = () => {
               </div>
               {params_username === username ? (
                 <div className='edit-profile'>
-                  <Link to='/profile/settings'> Edit Profile </Link>
+                  <Link to={`/profile/${params_username}/settings`}>
+                    {' '}
+                    Edit Profile{' '}
+                  </Link>
                 </div>
               ) : (
                 <button

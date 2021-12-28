@@ -30,7 +30,6 @@ export const ProfileContextProvider = ({ children }) => {
       }
     } catch (error) {
       setPageLoading(false)
-      history.push('/error')
     }
   }
 

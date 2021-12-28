@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import FormInput from '../FormComponents/FormInput/FormInput'
 const SearchBar = memo(() => {
   return (
-    <div className='margin-t-s'>
+    <div style={{ width: '33.33%' }}>
       <FormInput type='text' name='search' placeholder='search' />
     </div>
   )

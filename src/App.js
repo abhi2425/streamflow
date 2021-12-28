@@ -57,7 +57,7 @@ const App = () => {
         <PrivateRoute path='/logout'>
           <Logout />
         </PrivateRoute>
-        <PrivateRoute exact path='/profile/settings'>
+        <PrivateRoute exact path='/profile/:username/settings'>
           <Navbar />
           <Settings setShowNav={setShowNav} showNav={showNav} />
         </PrivateRoute>

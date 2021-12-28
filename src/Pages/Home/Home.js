@@ -35,7 +35,7 @@ const Home = () => {
 
   return (
     <main className='margin-t-l flex-y-center'>
-      <section style={{ width: '80%' }}>{_allPosts}</section>
+      <section style={{ width: '70%' }}>{_allPosts}</section>
     </main>
   )
 }

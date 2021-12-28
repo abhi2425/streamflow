@@ -1,7 +1,5 @@
 import React, { memo } from 'react'
 import Spinner from './Spinner'
-import streamFlowImage from '../../../Assets/StreamFlow.svg'
-import logoutImage from '../../../Assets/Logging Out.svg'
 import Loader from './Spinner'
 
 export const SpinButton = memo(({ spinClass, fullWidth }) => (
@@ -29,10 +27,9 @@ export const StreamFlowLoading = memo(({ logout }) => (
     }}
     className='flex-x-between'
   >
-    <img
-      src={logout ? logoutImage : streamFlowImage}
-      alt={logout ? 'Logging Out.....' : 'Loading....'}
-    />
+    <pre style={{}} className='streamflow'>
+      {logout ? 'Logging Out...' : 'StreamFlow...'}
+    </pre>
     <Loader styles='loader-medium' />
   </div>
 ))

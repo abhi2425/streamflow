@@ -3,7 +3,7 @@ import { FaRegComment, FaThumbsDown, FaThumbsUp } from 'react-icons/fa'
 
 const PostLikes = ({ state, voteHandler, setShowComments, showComments }) => (
   <div className='reviews flex-x-between margin-t-s'>
-    <div>
+    <div className='flex-row'>
       <i
         className='icon m-right-s'
         id='upVote'

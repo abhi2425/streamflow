@@ -28,6 +28,7 @@
   font-size: 1.2rem;
   border-left: 1.1em solid var(--color-profile-2);
 }
+
 @-webkit-keyframes load8 {
   0% {
     -webkit-transform: rotate(0deg);

@@ -1,67 +1,72 @@
 .signup-page {
-   width: 100vw;
-   height: 100vh;
-   background-image: url('../../Assets/Signup\ Screen.svg');
-   background-size: cover;
-   background-repeat: no-repeat;
-   overflow: hidden;
+  height: 100vh;
+  background: linear-gradient(
+    51.7deg,
+    #6d57de 0%,
+    #5b3cb4 0%,
+    rgba(75, 34, 142, 0.997195) 0%,
+    rgba(97, 52, 193, 0.96) 51.68%,
+    rgba(102, 75, 246, 0.976783) 71.96%,
+    #6950ed 99.33%,
+    rgba(73, 33, 138, 0.45) 99.94%
+  );
 }
 .container {
-   width: 95%;
+  width: 95%;
 }
 .capa {
-   width: 40vw;
-   max-width: 45rem;
+  width: 40vw;
+  max-width: 45rem;
 }
 .login-btn {
-   font-size: 1.8rem;
-   color: black;
-   padding: 0;
-   z-index: 2;
+  font-size: 1.8rem;
+  color: black;
+  padding: 0;
+  z-index: 2;
 }
 .login-btn span {
-   font-size: 2rem;
-   font-family: 'redressed';
+  font-size: 2rem;
+  font-family: 'redressed';
 }
 .login-btn span:hover {
-   color: var(--color-profile-1-light);
+  color: var(--color-profile-1-light);
 }
 .signup-heading {
-   font-family: 'redressed';
-   font-size: 4rem;
-   margin-bottom: 1rem;
-   text-transform: capitalize;
+  font-family: 'redressed';
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
 }
 .signup-form {
-   max-width: 60rem;
-   width: 55rem;
-   border-radius: 1.5rem;
-   padding: 3rem 4rem;
-   box-shadow: inset 0 5rem 2rem rgba(255, 255, 255, 0.5);
-   position: relative;
-   background-color: rgb(253, 253, 255);
+  max-width: 60rem;
+  width: 55rem;
+  border-radius: 1.5rem;
+  padding: 3rem 4rem;
+  box-shadow: inset 0 5rem 2rem rgba(255, 255, 255, 0.5);
+  position: relative;
+  background-color: rgb(253, 253, 255);
 }
 .signup-btn {
-   width: 100%;
-   padding: 1.2rem 0;
-   font-size: 2rem;
+  width: 100%;
+  padding: 1.2rem 0;
+  font-size: 2rem;
 }
 
 @media screen and (max-width: 650px) {
-   .signup-page {
-      background-size: auto;
-   }
-   .container {
-      padding: 0;
-      margin-top: 6rem;
-   }
-   .signup-form {
-      padding: 2rem;
-   }
-   .signup-heading {
-      font-size: 2.8rem;
-   }
-   .capa {
-      display: none;
-   }
+  .signup-page {
+    background-size: auto;
+  }
+  .container {
+    padding: 0;
+    margin-top: 6rem;
+  }
+  .signup-form {
+    padding: 2rem;
+  }
+  .signup-heading {
+    font-size: 2.8rem;
+  }
+  .capa {
+    display: none;
+  }
 }

@@ -14,7 +14,7 @@ const linksGenerator = (username) => [
     icon: <FaUserAlt />,
   },
   {
-    url: '/profile/settings',
+    url: `/profile/${username}/settings`,
     label: 'settings',
     icon: <VscSettingsGear />,
   },

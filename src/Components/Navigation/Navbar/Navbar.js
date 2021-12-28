@@ -61,11 +61,7 @@ const Navbar = () => {
       <h1 className='logo'>
         <Link to='/'>StreamFlow</Link>
       </h1>
-      {screenWidth > 650 && (
-        <div>
-          <SearchBar />
-        </div>
-      )}
+      {screenWidth > 650 && <SearchBar />}
 
       <div className='flex-x-between'>
         {screenWidth <= 650 && (

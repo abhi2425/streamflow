@@ -1,24 +1,24 @@
 import React, { memo } from 'react'
 import './Modal.css'
-import { ImCross } from 'react-icons/im'
 import { useModal } from '../../../Contexts/ModalContext'
+import './Modal.css'
+
 const Modal = ({ children }) => {
-   const { showModal, setShowModal } = useModal()
-   return (
-      <main className={showModal.show ? 'overlay transition show-overlay' : 'overlay transition'}>
-         <section
-            className={
-               showModal.show
-                  ? 'modal-container transition show-modal'
-                  : 'modal-container transition'
-            }>
-            <i className='icon cancel' onClick={() => setShowModal(false)}>
-               <ImCross />
-            </i>
-            {children}
-         </section>
-      </main>
-   )
+  const { showModal, setShowModal } = useModal()
+
+  return (
+    <>
+      <main
+        onClick={() => setShowModal({ show: false })}
+        className={`${showModal?.show ? 'overlay show-overlay' : ''} overlay`}
+      ></main>
+      <section
+        className={`${showModal?.show ? 'show-modal' : ''} modal-container`}
+      >
+        {children}
+      </section>
+    </>
+  )
 }
 
 export default memo(Modal)

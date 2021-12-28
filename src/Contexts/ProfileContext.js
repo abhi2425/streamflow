@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useMemo, useState } from 'react'
 import { axios, request } from '../Utils/url'
 import { useGeneralContext } from './GeneralContext'
-import { useHistory } from 'react-router-dom'
 import { generateUserDetailList } from '../Utils/userDetailsList'
 import { generateSocialMediaLinks } from '../Utils/socialMediaList'
 const ProfileContext = createContext()
@@ -14,7 +13,6 @@ export const ProfileContextProvider = ({ children }) => {
   const [pageLoading, setPageLoading] = useState(true)
   const [isFollowing, setIsFollowing] = useState(false)
   const { updateData: followHandler } = useGeneralContext()
-  const history = useHistory()
 
   const getUserProfile = async (uname) => {
     try {

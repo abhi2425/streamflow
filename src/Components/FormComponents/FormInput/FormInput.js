@@ -9,6 +9,7 @@ const FormInput = ({
   optionalStyles,
   showPassword,
   setShowPassword,
+  inputStyle = {},
   ...props
 }) => {
   return (
@@ -24,26 +25,18 @@ const FormInput = ({
           defaultValue={defaultValue}
           ref={reference}
           onChange={changeHandler}
-          style={
-            error && {
-              border: error[props.name] && '.1rem solid var(--color-cancel)',
-            }
-          }
+          style={{
+            border: error ? error[props.name] && '.1rem solid var(--color-cancel)' : 'none',
+            ...inputStyle,
+          }}
         />
         {showPassword !== undefined && (
-          <i
-            className='icon icon-grey pos-abs'
-            onClick={() => setShowPassword((prev) => !prev)}
-          >
+          <i className='icon icon-grey pos-abs' onClick={() => setShowPassword((prev) => !prev)}>
             {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
           </i>
         )}
       </div>
-      {error
-        ? error[props.name] && (
-            <p className='formError'>{error[props.name].message}</p>
-          )
-        : null}
+      {error ? error[props.name] && <p className='formError'>{error[props.name].message}</p> : null}
     </section>
   )
 }

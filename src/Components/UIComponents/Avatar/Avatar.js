@@ -8,13 +8,7 @@ import { useModal } from '../../../Contexts/ModalContext'
 import AvatarVault from '../../../ModalVaults/AvatarVault/AvatarVault'
 import { useGeneralContext } from '../../../Contexts/GeneralContext'
 
-const Avatar = ({
-  imageClass,
-  iconClass,
-  localImageUrl,
-  avatarImageUrl,
-  onClick,
-}) => {
+const Avatar = ({ imageClass, iconClass, localImageUrl, avatarImageUrl, onClick }) => {
   const { setShowModal } = useModal()
   const { user, updateData: removeAvatar } = useGeneralContext()
 
@@ -27,7 +21,7 @@ const Avatar = ({
       })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [],
   )
 
   const deleteAvatar = useCallback(async () => {
@@ -41,8 +35,7 @@ const Avatar = ({
     <div
       style={{ position: 'relative', cursor: 'pointer' }}
       className='avatar-box'
-      onClick={onClick}
-    >
+      onClick={onClick}>
       {iconClass && (
         <div className='icon-box flex-y-between transition'>
           <FormInput
@@ -76,7 +69,7 @@ const Avatar = ({
         />
       ) : (
         <i className={imageClass}>
-          <FaUserCircle style={{ marginTop: '1rem' }} />
+          <FaUserCircle color='grey' style={{ marginTop: '1rem' }} />
         </i>
       )}
     </div>

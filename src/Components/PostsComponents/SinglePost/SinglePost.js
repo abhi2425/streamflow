@@ -1,12 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, {
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useReducer,
-  useState,
-} from 'react'
+import React, { memo, useCallback, useEffect, useMemo, useReducer, useState } from 'react'
 import { useUserContext } from '../../../Contexts/UserContext'
 import Dates from 'date-and-time'
 import { voteReducer } from '../../../Utils/voteHandler/voteReducer'
@@ -18,21 +10,26 @@ import PostComments from './PostComments/PostComments'
 import { request } from '../../../Utils/url'
 
 const SinglePost = ({ post, user }) => {
-  const { title, body, postOwner, createdAt, upVote, downVote, comments } = post
-    ? post
-    : {}
+  const { title, body, postOwner, createdAt, upVote, downVote, comments } = post ? post : {}
   const {
     userData: { username },
   } = useUserContext()
-  const [state, dispatch] = useReducer(
-    voteReducer,
-    initialVoteState({ upVote, downVote })
-  )
+  const [state, dispatch] = useReducer(voteReducer, initialVoteState({ upVote, downVote }))
   const [toggleUpVote, setToggleUpVote] = useState(true)
   const [toggleDownVote, setToggleDownVote] = useState(true)
   const [sendRequest, setSendRequest] = useState(false)
   const [isUpVote, setIsUpVote] = useState(true)
   const [showComments, setShowComments] = useState(false)
+
+  useEffect(
+    () =>
+      void (async () => {
+        const url = `profile/post/votes/${title}`
+        const data = isUpVote ? { upVote: state?.upVote } : { downVote: state?.downVote }
+        sendRequest && (await request(url, 'PATCH', data))
+      })(),
+    [isUpVote, sendRequest, state?.downVote, state?.upVote, title],
+  )
 
   useEffect(() => {
     const hasUpVoted = upVote?.findIndex((name) => name === username)
@@ -45,15 +42,9 @@ const SinglePost = ({ post, user }) => {
       dispatch({ type: 'DOWNVOTED_ALREADY' })
       setToggleDownVote(false)
     }
-  }, [])
-
-  useEffect(async () => {
-    const url = `profile/post/votes/${title}`
-    const data = isUpVote
-      ? { upVote: state.upVote }
-      : { downVote: state.downVote }
-    sendRequest && (await request(url, 'PATCH', data))
-  }, [isUpVote, sendRequest, state.downVote, state.upVote])
+    dispatch({ type: 'UPDATE_UP_VOTE', payload: upVote })
+    dispatch({ type: 'UPDATE_DOWN_VOTE', payload: downVote })
+  }, [upVote, downVote, username])
 
   const created_At = useMemo(() => {
     const pattern = Dates.compile('MMM D, YYYY')
@@ -62,7 +53,7 @@ const SinglePost = ({ post, user }) => {
 
   const postImages = useMemo(
     () =>
-      post.blogImages?.map((item, imageIndex) => (
+      post?.blogImages?.map((item, imageIndex) => (
         <div key={`${imageIndex}-image`} style={{ maxWidth: '450px' }}>
           <a href={item.image} target='blank'>
             <img
@@ -70,12 +61,12 @@ const SinglePost = ({ post, user }) => {
               loading='lazy'
               src={item.image}
               alt={`postImage-${imageIndex}`}
-              className='margin-s'
+              className='margin-t-s'
             />
           </a>
         </div>
       )),
-    [post.blogImages]
+    [post?.blogImages],
   )
   const voteHandler = useCallback(
     (flag) => {
@@ -94,23 +85,13 @@ const SinglePost = ({ post, user }) => {
       }
       setSendRequest(true)
     },
-    [toggleDownVote, toggleUpVote, username]
+    [toggleDownVote, toggleUpVote, username],
   )
 
   return (
     <article className='single-post margin-b-m'>
-      <PostHeader
-        postOwner={postOwner}
-        user={user}
-        title={title}
-        username={username}
-      />
-      <PostBody
-        body={body}
-        title={title}
-        created_At={created_At}
-        postImages={postImages}
-      />
+      <PostHeader postOwner={postOwner} user={user} title={title} username={username} />
+      <PostBody body={body} title={title} created_At={created_At} postImages={postImages} />
       <PostLikes
         state={state}
         voteHandler={voteHandler}

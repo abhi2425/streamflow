@@ -1,0 +1,98 @@
+.search-icon {
+  position: absolute;
+  top: 37%;
+  left: 0.4rem;
+  z-index: 10;
+  cursor: pointer;
+}
+.search-reset {
+  position: absolute;
+  top: 37%;
+  right: 0.8rem;
+  z-index: 10;
+  cursor: pointer;
+}
+.result-container {
+  width: 100%;
+  background: white;
+  position: absolute;
+  top: 3.8rem;
+  left: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+  /* overflow-y: scroll; */
+  overflow-x: hidden;
+}
+
+/* Tabs */
+
+.container {
+  padding: 0;
+  margin: 1rem;
+}
+
+.tab-content {
+  padding: 1rem 0.5rem;
+}
+
+#material-tabs {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  border-bottom: 0.1rem solid #e0e0e0;
+}
+
+#material-tabs > div {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  padding: 1rem;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #424f5a;
+  text-align: center;
+  outline: none;
+  width: 50%;
+  cursor: pointer;
+}
+
+.yellow-bar {
+  position: absolute;
+  z-index: 10;
+  bottom: 0;
+  height: 0.3rem;
+  background: var(--color-profile-2);
+  display: block;
+  left: 0;
+  transition: all 0.2s ease;
+  -webkit-transition: left 0.2s ease;
+  width: 50%;
+}
+.tab1-tab {
+  left: 0;
+}
+.tab2-tab {
+  left: 50%;
+}
+
+.result-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.show-result-overlay {
+  opacity: 1;
+  z-index: -1;
+  visibility: visible;
+}

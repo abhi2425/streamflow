@@ -2,7 +2,7 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import './EditPostPage.css'
 import axios from 'axios'
-import { useParams, useHistory } from 'react-router'
+import { useParams } from 'react-router'
 import Navbar from '../../Components/Navigation/Navbar/Navbar'
 import PlaceholderSpinner from '../../Components/UIComponents/Loader/PlaceholderSpinner'
 import { useUserContext } from '../../Contexts/UserContext'
@@ -16,7 +16,6 @@ const EditPostPage = () => {
     userData: { username },
   } = useUserContext()
   const { updateData: deleteImage } = useGeneralContext()
-  const history = useHistory()
   const [post, setPost] = useState({})
   const [pageLoading, setPageLoading] = useState(false)
 
@@ -30,7 +29,6 @@ const EditPostPage = () => {
       }
     } catch (error) {
       setPageLoading(false)
-      history.push('/error')
       console.log(error)
     }
   }, [postTitle, username])
@@ -43,18 +41,16 @@ const EditPostPage = () => {
 
   const deletePostImage = useCallback(
     async (imageIndex) => {
-      const postImage = post.blogImages?.find(
-        (_, index) => imageIndex === index
-      )
+      const postImage = post.blogImages?.find((_, index) => imageIndex === index)
       const response = await deleteImage(
         'DELETE',
         null,
         `profile/post/delete/${post.title}/post-image/${postImage.publicId}`,
-        `Image deleted from ${post.title}`
+        `Image deleted from ${post.title}`,
       )
       response && getPosts()
     },
-    [post.blogImages, post.title]
+    [post.blogImages, post.title],
   )
   const postImages = useMemo(
     () =>
@@ -65,15 +61,12 @@ const EditPostPage = () => {
             alt={`postImage-${imageIndex}`}
             className='margin-s post-image transition'
           />
-          <i
-            className='icon icon-red transition'
-            onClick={() => deletePostImage(imageIndex)}
-          >
+          <i className='icon icon-red transition' onClick={() => deletePostImage(imageIndex)}>
             <RiDeleteBinLine />
           </i>
         </div>
       )),
-    [post.blogImages]
+    [post.blogImages],
   )
   return (
     <div className='page'>

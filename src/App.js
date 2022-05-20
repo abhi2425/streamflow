@@ -19,6 +19,7 @@ import { useUserContext } from './Contexts/UserContext'
 import { useGeneralContext } from './Contexts/GeneralContext'
 import Navbar from './Components/Navigation/Navbar/Navbar'
 import { PostContextProvider } from './Contexts/PostContext'
+import Post from './Pages/Post/Post'
 
 const App = () => {
   const { showModal } = useModal()
@@ -68,6 +69,10 @@ const App = () => {
         <PrivateRoute path='/post/:title'>
           <Navbar />
           <EditPostPage />
+        </PrivateRoute>
+        <PrivateRoute path='/:owner/post/:title'>
+          <Navbar />
+          <Post />
         </PrivateRoute>
         <Route path='*'>
           <Error />

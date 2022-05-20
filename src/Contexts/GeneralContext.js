@@ -1,11 +1,5 @@
 import { axios, request } from '../Utils/url'
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from 'react'
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import { useModal } from './ModalContext'
 import { useUserContext } from './UserContext'
 export const GeneralContext = createContext()
@@ -20,6 +14,8 @@ export const GeneralContextProvider = ({ children }) => {
   const [isVaultLoading, setIsVaultLoading] = useState(false)
   const [isBtnLoading, setIsBtnLoading] = useState(false)
   const [fetchedData, setFetchedData] = useState({})
+  const [searchLoading, setSearchLoading] = useState(false)
+  const [searchData, setSearchData] = useState([])
 
   const fetchAuthUser = useCallback(async () => {
     try {
@@ -48,7 +44,7 @@ export const GeneralContextProvider = ({ children }) => {
           setIsVaultLoading(false)
         })
     },
-    [username]
+    [username],
   )
 
   const updateData = useCallback(
@@ -67,7 +63,7 @@ export const GeneralContextProvider = ({ children }) => {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [token]
+    [token],
   )
 
   const uploadPicture = useCallback(
@@ -94,7 +90,7 @@ export const GeneralContextProvider = ({ children }) => {
         popAlert(`couldn't upload the post!`, 'danger')
       }
     }, // eslint-disable-next-line react-hooks/exhaustive-deps
-    [token]
+    [token],
   )
 
   const createORupdatePost = useCallback(
@@ -109,8 +105,7 @@ export const GeneralContextProvider = ({ children }) => {
           postResponse &&
           (await uploadPicture(postImages, `profile/post/upload/${title}`))
 
-        const condition =
-          postImages.length !== 0 ? postResponse && imageResponse : postResponse
+        const condition = postImages.length !== 0 ? postResponse && imageResponse : postResponse
         if (condition) {
           setIsBtnLoading(false)
           popAlert(success, 'success')
@@ -123,8 +118,23 @@ export const GeneralContextProvider = ({ children }) => {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [],
   )
+
+  const getSearchResult = useCallback(async (searchTerm = '') => {
+    const url = `/search?search=${searchTerm}`
+    setSearchLoading(true)
+    const { response, status } = await request(url, 'GET')
+
+    if (status === 'success') {
+      setSearchLoading(false)
+      setSearchData([...response?.data])
+    }
+    if (status === 'failure') {
+      setSearchLoading(false)
+      setSearchData([{ success: false }])
+    }
+  }, [])
 
   const values = useMemo(
     () => ({
@@ -133,19 +143,21 @@ export const GeneralContextProvider = ({ children }) => {
       isVaultLoading,
       isBtnLoading,
       fetchedData,
+      searchData,
+      searchLoading,
       fetchAuthUser,
       fetchData,
       updateData,
       uploadPicture,
       createORupdatePost,
+      getSearchResult,
+      setSearchData,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user, pageLoading, isVaultLoading, fetchedData, isBtnLoading]
+    [user, pageLoading, isVaultLoading, fetchedData, isBtnLoading, searchData, searchLoading],
   )
 
-  return (
-    <GeneralContext.Provider value={values}>{children}</GeneralContext.Provider>
-  )
+  return <GeneralContext.Provider value={values}>{children}</GeneralContext.Provider>
 }
 
 export const useGeneralContext = () => useContext(GeneralContext)

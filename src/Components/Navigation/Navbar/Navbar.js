@@ -27,7 +27,16 @@ const Navbar = () => {
     window.addEventListener('resize', () => setScreenWidth(window.innerWidth))
     return () => window.removeEventListener('resize', () => {})
   }, [])
-  const searchHandler = () => {
+
+  useEffect(() => {
+    screenWidth > 650 &&
+      setShowModal((prev) => ({
+        show: false,
+      }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screenWidth])
+
+  const openSearchModal = () => {
     setShowModal((prev) => ({
       show: !prev.show,
       component: (
@@ -53,24 +62,21 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`navbar ${
-        screenWidth <= 650 ? 'flex-x-between' : 'flex-x-around'
-      }`}
-      style={{ zIndex: screenWidth <= 650 ? '50' : '10' }}
-    >
+      className={`navbar ${screenWidth <= 650 ? 'flex-x-between' : 'flex-x-around'}`}
+      style={{ zIndex: screenWidth <= 650 ? '50' : '10' }}>
       <h1 className='logo'>
         <Link to='/'>StreamFlow</Link>
       </h1>
-      {screenWidth > 650 && <SearchBar />}
+      {screenWidth > 650 && (
+        <div style={{ width: '33.33%' }}>
+          <SearchBar />
+        </div>
+      )}
 
       <div className='flex-x-between'>
         {screenWidth <= 650 && (
           <span>
-            <i
-              className='icon m-right-s'
-              style={{ display: 'block' }}
-              onClick={searchHandler}
-            >
+            <i className='icon m-right-s' style={{ display: 'block' }} onClick={openSearchModal}>
               <FaSearch />
             </i>
           </span>
@@ -90,11 +96,7 @@ const Navbar = () => {
       <aside className={`${showToolTip && 'show-tooltip'} nav-tooltip`}>
         {showToolTip && (
           <>
-            <div
-              role='none'
-              onClick={() => setShowToolTip(false)}
-              className='tooltip-backdrop'
-            />
+            <div role='none' onClick={() => setShowToolTip(false)} className='tooltip-backdrop' />
             <ul>{link}</ul>
           </>
         )}

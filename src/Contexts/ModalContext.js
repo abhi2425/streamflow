@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from 'react'
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react'
 
 const ModalContext = createContext()
 export const ModalContextProvider = ({ children }) => {
@@ -31,7 +25,7 @@ export const ModalContextProvider = ({ children }) => {
       setAlert,
       popAlert,
     }),
-    [alert, popAlert, showModal]
+    [alert, popAlert, showModal],
   )
   return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
 }

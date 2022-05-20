@@ -15,25 +15,14 @@ const PostBody = ({ title, body, created_At, postImages }) => {
         </div>
       </div>
       <div className='post-body m-left-s'>
-        {body?.length < 200
-          ? body
-          : readMore
-          ? body
-          : body?.substring(0, 200) + ' . . .'}
+        {body?.length < 200 ? body : readMore ? body : body?.substring(0, 200) + ' . . .'}
         {body?.length > 200 && (
-          <button
-            className='btn read-more transition'
-            onClick={() => setReadMore((prev) => !prev)}
-          >
+          <button className='btn read-more transition' onClick={() => setReadMore((prev) => !prev)}>
             {readMore ? 'Show Less' : 'Read More'}
           </button>
         )}
       </div>
-      <div
-        className={postImages.length === 1 ? 'flex-x-center' : 'post-images'}
-      >
-        {postImages}
-      </div>
+      <div className={postImages?.length === 1 ? 'flex-x-center' : 'post-images'}>{postImages}</div>
     </>
   )
 }

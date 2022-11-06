@@ -1,0 +1,13 @@
+version: '3.9'
+name: steamflow-frontend
+
+services:
+  frontend:
+    build: .
+    image: abhi2425/streamflow
+    networks:
+      - frontend
+    ports:
+      - 3000:3000
+networks:
+  frontend: {}

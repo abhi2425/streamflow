@@ -36,6 +36,7 @@
   font-size: 4rem;
   margin-bottom: 1rem;
   text-transform: capitalize;
+  font-weight: bold;
 }
 .signup-form {
   max-width: 60rem;

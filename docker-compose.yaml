@@ -5,6 +5,7 @@ services:
   frontend:
     build: .
     image: abhi2425/streamflow
+    restart: unless-stopped
     networks:
       - frontend
     ports:

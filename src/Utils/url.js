@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getDataFromLocalStorage } from './localStorage'
 
-export const BASE_URL = 'https://streamflow-blog-api-production.up.railway.app/'
+export const BASE_URL = 'https://streamflow-blog-api.vercel.app/'
 export const source = axios.CancelToken.source()
 axios.defaults.baseURL = BASE_URL
 export { axios }
